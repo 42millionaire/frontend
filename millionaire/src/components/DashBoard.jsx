@@ -1,6 +1,6 @@
 export default function DashBoard() {
 	return (
-		<div className="flex-none w-[65%] mt-[20px]">
+		<div className="w-[65%] mt-[20px]">
 			<h1 className="mb-[10px] text-[40px]">Dash Board</h1>
 			<div className="w-[100%] mb-[50px]">
 				<h1 className="text-[25px]">Achievement</h1>
@@ -57,5 +57,5 @@ export default function DashBoard() {
 				</ul>
 			</div>
 		</div>
-	)
+	);
 }

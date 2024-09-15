@@ -1,6 +1,6 @@
 export default function MemberManage() {
 	return (
-		<div className="flex-none w-[65%] mt-[20px]">
+		<div className="w-[65%] mt-[20px]">
 			<h1 className="mb-[10px] text-[40px]">Member Management</h1>
 			<div className="mb-[50px] w-[100%]">
 				<h1 className="text-[25px]">Members</h1>
@@ -60,5 +60,5 @@ export default function MemberManage() {
 				</ul>
 			</div>
 		</div>
-	)
+	);
 }
