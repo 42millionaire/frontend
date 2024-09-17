@@ -17,7 +17,7 @@ export default function Admin() {
 	const AdminBody = PAGES[page];
 
 	return (
-		<div className="flex text-orange-400">
+		<div className="flex text-gray-300">
 			<Sidebar setPage={setPage} />
 			<AdminBody />
 		</div>
