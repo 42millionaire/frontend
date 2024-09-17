@@ -11,8 +11,7 @@ const Authentication = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const response = await fetch(`${BASE_URL}/task/01`, {
-
+				const response = await fetch(`${BASE_URL}/task/01`, {	
 					method: "GET"
 				});
 				const res = await response.json();
