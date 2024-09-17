@@ -1,64 +1,74 @@
+import { useState } from "react";
+import { useEffect } from "react";
+import AdminContentBlock from "./AdminContentBlock";
+import AdminBody from "./AdminBody";
+
 export default function MemberManage() {
+	const [members, setMembers] = useState([]);
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const response = await fetch(BASE_URL);
+				const res = await response.json();
+				setMembers(res.groupmembers);
+			} catch (error) {
+				console.error(error);
+			}
+		};
+		fetchData();
+	}, []);
+	
+	const renderMembers = () => {
+		return (
+			<ul className="text-[20px]">{
+				members.map(
+				(item) =>(
+				<li key={item.id} className="flex hover:text-orange-400">
+					<div className="w-[50%]">{item.member_name}</div>
+					<div className="w-[20%]">{item.grade}</div>
+					<div className="w-[10%] text-center">⬆️</div>
+					<div className="w-[10%] text-center">⬇️</div>
+					<div className="w-[10%] text-center">❌</div>
+				</li>
+				),
+			)}
+			</ul>
+		)
+	};
+
+	const [joinRequests, setJoinRequests] = useState([]);
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const response = await fetch(BASE_URL);
+				const res = await response.json();
+				setJoinRequests(res.joinrequest);
+			} catch (error) {
+				console.error(error);
+			}
+		};
+		fetchData();
+	}, []);
+	
+	const renderJoinRequests = () => {
+		return (
+			<ul className="text-[20px]">
+				{joinRequests.map(
+				(item) =>(
+				<li key={item.id} className="flex hover:text-orange-400">
+					<div className="w-[50%]">{item.member_name}</div>
+					<div className="w-[40%]">{item.created_time}</div>
+					<div className="w-[10%] text-center">✅</div>
+				</li>
+				),
+				)}
+			</ul>
+		)
+	};
 	return (
-		<div className="w-[65%] mt-[20px]">
-			<h1 className="mb-[10px] text-[40px]">Member Management</h1>
-			<div className="mb-[50px] w-[100%]">
-				<h1 className="text-[25px]">Members</h1>
-				<hr className="mb-[5px]"></hr>
-				<ul className="text-[20px]">
-					<li className="flex">
-						<div className="w-[50%]">hyuim</div>
-						<div className="w-[20%]">admin</div>
-						<div className="w-[10%] text-center">⬆️</div>
-						<div className="w-[10%] text-center">⬇️</div>
-						<div className="w-[10%] text-center">❌</div>
-					</li>
-					<li className="flex">
-						<div className="w-[50%]">soohlee</div>
-						<div className="w-[20%]">manager</div>
-						<div className="w-[10%] text-center">⬆️</div>
-						<div className="w-[10%] text-center">⬇️</div>
-						<div className="w-[10%] text-center">❌</div>
-					</li>
-					<li className="flex">
-						<div className="w-[50%]">sungmiki</div>
-						<div className="w-[20%]">member</div>
-						<div className="w-[10%] text-center">⬆️</div>
-						<div className="w-[10%] text-center">⬇️</div>
-						<div className="w-[10%] text-center">❌</div>
-					</li>
-					<li className="flex">
-						<div className="w-[50%]">jonhan</div>
-						<div className="w-[20%]">member</div>
-						<div className="w-[10%] text-center">⬆️</div>
-						<div className="w-[10%] text-center">⬇️</div>
-						<div className="w-[10%] text-center">❌</div>
-					</li>
-					<li className="flex">
-						<div className="w-[50%]">junssong</div>
-						<div className="w-[20%]">member</div>
-						<div className="w-[10%] text-center">⬆️</div>
-						<div className="w-[10%] text-center">⬇️</div>
-						<div className="w-[10%] text-center">❌</div>
-					</li>
-				</ul>
-			</div>
-			<div className="w-[100%]">
-				<h1 className="text-[25px]">Join Request</h1>
-				<hr className="mb-[5px]"></hr>
-				<ul className="text-[20px]">
-					<li className="flex">
-						<div className="w-[50%]">seoson</div>
-						<div className="w-[40%]">2024.09.03 23:02</div>
-						<div className="w-[10%] text-center">✅</div>
-					</li>
-					<li className="flex">
-						<div className="w-[50%]">donglee2</div>
-						<div className="w-[40%]">2024.09.03 23:02</div>
-						<div className="w-[10%] text-center">✅</div>
-					</li>
-				</ul>
-			</div>
-		</div>
+		<AdminBody title={"Member Management"}>
+			<AdminContentBlock title={"Members"} contents={renderMembers}/>
+			<AdminContentBlock title={"Join Request"} contents={renderJoinRequests}/>
+		</AdminBody>
 	);
 }
