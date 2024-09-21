@@ -8,13 +8,20 @@ export default function DashBoard() {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const response = await fetch("../data/penalty.json", {
-					headers: {
-						"Content-Type": "application/json",
-					},
-				});
+				const response = await fetch(`${BASE_URL}/groupmember/penalty`, {
+                    headers: {
+                        "Accept": "application/json",
+                        "ngrok-skip-browser-warning": true,
+                    },
+                    method: "GET",
+					body: {
+						"groupId" : 1,
+						"year": 2024,
+						"month" : 9
+					}
+                });
 				const res = await response.json();
-				setPenalties(res.members);
+				setJoinRequests(res.groupJoinResponses);
 			} catch (error) {
 				console.error(error);
 			}
