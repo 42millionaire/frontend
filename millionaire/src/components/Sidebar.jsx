@@ -1,12 +1,12 @@
-import PAGE_TITLES from "../constants/PAGE_TITLES";
+import PAGE_TITLES from "../constants/PAGE_TITLES.js";
 
 const Sidebar = ({ setPage }) => (
-	<div className="w-[23%] mt-[20px] ml-[20px]">
+	<div className="w-[23%] mt-[20px] ml-[20px] mr-[10px]">
 		<h1 className="mb-[50px] mt-[20px] text-[30px]">☠️세후1억 해적단☠️</h1>
 		<nav>
 			<ul className="text-[20px]">
 				{Object.entries(PAGE_TITLES).map(([key, title]) => (
-					<li key={key} onClick={() => setPage(key)} className="hover:text-orange-400 cursor-pointer  w-fit">
+					<li key={key} onClick={() => setPage(key)} className="mb-[20px] hover:text-orange-400 cursor-pointer  w-fit">
 						{title}
 					</li>
 				))}
