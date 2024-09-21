@@ -1,16 +1,48 @@
-import { useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import AdminContentBlock from "./AdminContentBlock";
 import AdminBody from "./AdminBody";
+import { getAPI } from "../apis/get.js";
+import BASE_URL from "../constants/URL.js";
 
 export default function DashBoard() {
 	const [noticeContent, setNoticeContent] = useState("");
+
+	useEffect(() => {
+		fetchNotice();
+	}, []);
+	
+	const fetchNotice = async () => {
+		try {
+			const data = await getAPI('group/notice/1');
+			console.log(data);
+			setNoticeContent(data.notice);
+		} catch (error) {
+			console.error(error);
+		}
+	};
 	const handleClick = () => {
-		console.log("HELLO");
+		try {
+            const response = fetch(`${BASE_URL}/group/notice`, {
+                headers: {
+                    "Accept": "application/json",
+					"Content-Type": "application/json",
+                    "ngrok-skip-browser-warning": true,
+                },
+                method: "POST",
+				body:JSON.stringify({
+					"groupId" : 1,
+					"notice" : noticeContent
+				}),
+            });
+            console.log(response);
+        } catch (error) {
+            console.error(error);
+        }
 	};
 
 	const noticeBox = () =>{
 		return (
-			<>
+			<Fragment>
 			<p>
 				<textarea
 					className="w-[100%] h-[300px] bg-black"
@@ -30,12 +62,12 @@ export default function DashBoard() {
 					Notify
 				</button>
 			</div>
-			</>
+			</Fragment>
 		)
 	}
 	return (
 		<AdminBody title={"Notice Board"}>
-			<AdminContentBlock className={"w-[80%]"} title={"Notice"} contents={noticeBox}/>
+			<AdminContentBlock className={"w-[90%]"} title={"Notice"} contents={noticeBox}/>
 		</AdminBody>
 	);
 }
