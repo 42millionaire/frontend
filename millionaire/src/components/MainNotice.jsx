@@ -1,4 +1,4 @@
-export default function Notice({ notice }) {
+export default function MainNotice({ notice }) {
 	return (
 		<section className="mt-10 w-[190x]">
 			<h2 className="text-2xl font-bold mb-2">Notice</h2>

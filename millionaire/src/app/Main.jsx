@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getAPI } from "../apis/get.js";
 import MainHeader from "../components/Main/MainHeader.jsx";
 import MemberList from "../components/MemberList.jsx";
-import Notice from "../components/Notice.jsx";
+import MainNotice from "../components/MainNotice.jsx";
 import useMainAPI from "../hooks/useMain.js";
 import TaskAddButton from "../components/Main/TaskAddButton.jsx";
 import TaskModal from "../components/Main/TaskModal.jsx";
@@ -102,7 +102,7 @@ export default function Main() {
 			<div className="w-1/4 p-4 border-r border-gray-700">
 				<h1 className="text-2xl font-bold mb-4">{groupTitle}</h1>
 				<MemberList members={members} />
-				<Notice notice={notice} />
+				<MainNotice notice={notice} />
 			</div>
 			<div className="w-3/4 p-4 overflow-auto">
 				<MainHeader
