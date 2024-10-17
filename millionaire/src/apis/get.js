@@ -11,7 +11,6 @@ const getAPI = async (path, queryParams = {}) => {
 			headers: {
 				"Accept": "application/json",
 				"Content-Type": "application/json",
-				"ngrok-skip-browser-warning": true,
 			},
 			method: "GET",
 		});
@@ -19,7 +18,7 @@ const getAPI = async (path, queryParams = {}) => {
 		if (response.ok) {
 			return response.json();
 		} else {
-			throw new Error(`HTTP error! status: ${response.status}`);
+			return null;
 		}
 	} catch (error) {
 		console.error("Error in getAPI: ", error);
