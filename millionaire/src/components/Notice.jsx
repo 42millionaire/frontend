@@ -45,7 +45,7 @@ export default function DashBoard() {
 			<Fragment>
 			<p>
 				<textarea
-					className="w-[100%] h-[300px] bg-black"
+					className="w-[100%] h-[300px] bg-gray-200 text-gray-500 rounded-md p-2"
 					name="notice"
 					placeholder="Notice"
 					value={noticeContent}
@@ -67,7 +67,7 @@ export default function DashBoard() {
 	}
 	return (
 		<AdminBody title={"Notice Board"}>
-			<AdminContentBlock className={"w-[90%]"} title={"Notice"} contents={noticeBox}/>
+			<AdminContentBlock className={"w-[90%]"} title={"공지사항"} contents={noticeBox}/>
 		</AdminBody>
 	);
 }
