@@ -1,5 +1,4 @@
 const AdminContentBlock = ({title, contents, className, topbutton}) =>{
-	console.log(topbutton)
 	return (
 		<div className={className}>
 		<div className="mb-[50px]">
