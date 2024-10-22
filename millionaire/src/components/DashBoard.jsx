@@ -124,13 +124,31 @@ export default function DashBoard() {
         }
 	};
 
+	const prevMonth = () => {
+		if (month===1){
+			setYear(year-1);
+			setMonth(12);
+		}else{
+			setMonth(month - 1);
+		}
+	}
+
+	const nextMonth = () => {
+		if(month===12){
+			setYear(year + 1);
+			setMonth(1);
+		}else{
+			setMonth(month + 1);
+		}
+	}
+
 	const monthSelector = () => {
 		return (
 			<div className="flex justify-between w-[180px]">
 				<button className="font-bold hover:text-blue-400" onClick={()=>{setYear(year - 1)}}>{"<<"}</button>
-				<button className="font-bold hover:text-gray-500" onClick={()=>{if(month===1){setYear(year-1);setMonth(12);}else{setMonth(month - 1)}}}>{"<"}</button>
+				<button className="font-bold hover:text-gray-500" onClick={()=>{prevMonth()}}>{"<"}</button>
 				<p className="w-[45%] p-2 text-center">{year}-{month}</p>
-				<button className="font-bold hover:text-orange-400" onClick={()=>{if(month===12){setYear(year + 1);setMonth(1)}else{setMonth(month + 1)}}}>{">"}</button>
+				<button className="font-bold hover:text-orange-400" onClick={()=>{nextMonth()}}>{">"}</button>
 				<button className="font-bold hover:text-green-400" onClick={()=>{setYear(year + 1)}}>{">>"}</button>
 			</div>
 		)
