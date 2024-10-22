@@ -6,7 +6,6 @@ import BASE_URL from "../constants/URL.js";
 
 export default function DashBoard() {
 	const [penalties, setPenalties] = useState([]);
-	// const [penaltyAmount, setPenaltyAmount] = useState([]);
 	const [dailyPenalty, setDailyPenalty] = useState("");
 	const [weeklyPenalty, setWeeklyPenalty] = useState("");
 	const [monthlyPenalty, setMonthlyPenalty] = useState("");
@@ -99,7 +98,6 @@ export default function DashBoard() {
 	};
 
 	const updatePenalties = () => {
-		console.log("hello");
 		return (
 			<button className="w-[90px] m-1 p-1 rounded-md bg-green-600 text-white hover:bg-green-700" onClick={buttonClick}>업데이트</button>
 		)
@@ -121,7 +119,6 @@ export default function DashBoard() {
 					"dailyPenalty" : dailyPenalty
 				}),
             });
-            console.log(response);
         } catch (error) {
             console.error(error);
         }
