@@ -4,7 +4,7 @@ import AdminBody from "./AdminBody";
 import { getAPI } from "../apis/get.js";
 import BASE_URL from "../constants/URL.js";
 
-export default function DashBoard() {
+export default function Notice() {
 	const [noticeContent, setNoticeContent] = useState("");
 
 	useEffect(() => {
