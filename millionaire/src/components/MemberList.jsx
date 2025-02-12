@@ -1,4 +1,5 @@
 export default function MemberList({ members }) {
+	//memberId로 눌렀을 시, 해당 멤버의 카드만 보이도록.
 	return (
 		<section>
 			<h2 className="text-2xl font-bold mb-4">Member</h2>

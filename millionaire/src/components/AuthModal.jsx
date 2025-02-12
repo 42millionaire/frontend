@@ -2,7 +2,6 @@ import { useState, useRef } from "react";
 import { FaPlus, FaTimes } from "react-icons/fa";
 import postAPI from "../apis/post.js";
 
-//taskID를 받아와야함
 export default function AuthModal({ taskId, onClose }) {
 	const [content, setContent] = useState("");
 	const [image, setImage] = useState(null);
@@ -83,7 +82,7 @@ export default function AuthModal({ taskId, onClose }) {
 							className="w-full h-20 resize-none text-gray-700 focus:outline-none"
 						/>
 						<div className="text-right text-sm text-gray-500">
-							{content.length} / 3000
+							{content.length} / 50
 						</div>
 					</div>
 					<div className="relative flex justify-center items-center h-20 p-4 border border-dashed rounded-lg">

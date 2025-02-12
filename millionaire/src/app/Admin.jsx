@@ -2,7 +2,7 @@ import { useState } from "react";
 import Authentication from "../components/Authentication";
 import MemberManage from "../components/MemberManage";
 import DashBoard from "../components/DashBoard";
-import Notice from "../components/Notice";
+import MainNotice from "../components/Main/MainNotice";
 import Sidebar from "../components/Sidebar";
 
 const PAGES = {
