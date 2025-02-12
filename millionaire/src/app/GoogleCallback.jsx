@@ -15,8 +15,8 @@ const GoogleCallback = () => {
 				console.error("Google login failed");
 				navigate("/login");
 			} else {
-				console.log(isSuccess);
-				window.localStorage.setItem("accessToken", isSuccess.accessToken);
+				window.localStorage.setItem("memberId", isSuccess.memberId);
+				window.localStorage.setItem("memberName", isSuccess.memberName);
 				navigate("/");
 			}
 		} catch (error) {

@@ -8,20 +8,20 @@ import GoogleCallback from "./app/GoogleCallback.jsx";
 import { useEffect, useState } from "react";
 
 function App() {
-	// const ProtectedRoute = ({ children }) => {
-	// 	const [isAuthenticated, setIsAuthenticated] = useState(false);
-	// 	const navigate = useNavigate();
+	const ProtectedRoute = ({ children }) => {
+		const [isAuthenticated, setIsAuthenticated] = useState(false);
+		const navigate = useNavigate();
 
-	// 	useEffect(() => {
-	// 		const token = localStorage.getItem("accessToken");
-	// 		setIsAuthenticated(!!token);
-	// 		if (!token) {
-	// 			navigate("/login", { replace: true });
-	// 		}
-	// 	}, [navigate]);
+		useEffect(() => {
+			const token = localStorage.getItem("memberId");
+			setIsAuthenticated(!!token);
+			if (!token) {
+				navigate("/login", { replace: true });
+			}
+		}, [navigate]);
 
-	// 	return isAuthenticated ? children : null;
-	// };
+		return isAuthenticated ? children : null;
+	};
 
 	return (
 		<BrowserRouter>
@@ -29,9 +29,9 @@ function App() {
 				<Route
 					path="/"
 					element={
-						// <ProtectedRoute>
-						<Home />
-						// </ProtectedRoute>
+						<ProtectedRoute>
+							<Home />
+						</ProtectedRoute>
 					}
 				/>
 				<Route path="/login" element={<Login />} />
@@ -39,17 +39,17 @@ function App() {
 				<Route
 					path="/main"
 					element={
-						// <ProtectedRoute>
-						<Main />
-						// </ProtectedRoute>
+						<ProtectedRoute>
+							<Main />
+						</ProtectedRoute>
 					}
 				/>
 				<Route
 					path="/admin"
 					element={
-						// <ProtectedRoute>
-						<Admin />
-						// </ProtectedRoute>
+						<ProtectedRoute>
+							<Admin />
+						</ProtectedRoute>
 					}
 				/>
 			</Routes>

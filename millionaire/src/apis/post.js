@@ -14,7 +14,7 @@ const postAPI = async (path, RequestBody) => {
 		});
 
 		if (response.ok) {
-			return response.json();
+			return await response.text();
 		} else {
 			throw new Error(`HTTP error! status: ${response.status}`);
 		}
