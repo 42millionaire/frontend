@@ -9,7 +9,7 @@ const PAGES = {
 	AUTH: Authentication,
 	MEMBER: MemberManage,
 	DASH: DashBoard,
-	NOTICE: MainNotice,
+	NOTICE: Notice,
 };
 
 export default function Admin() {

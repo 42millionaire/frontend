@@ -42,7 +42,6 @@ export default function MemberManage() {
 					"role" : status
 				}),
             });
-            console.log(response);
 			if (response.ok){
 				await fetchMembers();
 			}
@@ -65,7 +64,6 @@ export default function MemberManage() {
 					"memberId" : memberId,
 				}),
             });
-            console.log(response);
 			if (response.status === 200){
 				setMembers();
 			}
@@ -79,12 +77,12 @@ export default function MemberManage() {
 			<ul className="text-[20px]">{
 				members.map(
 				(item) =>(
-				<li key={item.id} className="flex hover:text-orange-400">
+				<li key={item.id} className="flex m-2 hover:text-orange-400">
 					<div className="w-[50%]">{item.name}</div>
 					<div className="w-[20%]">{item.grade}</div>
-					<button className="w-[9%] mr-2 px-1 bg-green-600 hover:bg-green-800 text-white text-[16px] rounded" onClick={()=>{gradeChange(item.memberId, "up")}}>승급</button>
-					<button className="w-[9%] mr-2 px-1 bg-green-600 hover:bg-green-800 text-white text-[16px] rounded" onClick={()=>{gradeChange(item.memberId, "down")}}>강등</button>
-            		<button className="w-[9%] px-1 bg-red-500 hover:bg-red-700 text-white text-[16px] rounded" onClick={()=>{memberDelete(item.memberId)}}>탈퇴</button>
+					<button className="w-[9%] mr-2 px-1 bg-orange-400 hover:bg-orange-500 text-white text-[16px] rounded" onClick={()=>{gradeChange(item.memberId, "up")}}>승급</button>
+					<button className="w-[9%] mr-2 px-1 bg-orange-500 hover:bg-orange-600 text-white text-[16px] rounded" onClick={()=>{gradeChange(item.memberId, "down")}}>강등</button>
+            		<button className="w-[9%] mr-2 px-1 bg-orange-700 hover:bg-orange-800 text-white text-[16px] rounded" onClick={()=>{memberDelete(item.memberId)}}>탈퇴</button>
 				</li>
 				),
 			)}
@@ -111,15 +109,37 @@ export default function MemberManage() {
 		fetchData();
 	}, []);
 	
+	const memberJoinOk = (memberId) => {
+		try {
+            const response = fetch(`${BASE_URL}/groupmember`, {
+                headers: {
+                    "Accept": "application/json",
+					"Content-Type": "application/json",
+                    "ngrok-skip-browser-warning": true,
+                },
+                method: "POST",
+				body:JSON.stringify({
+					"groupId" : 1,
+					"memberId" : memberId,
+				}),
+            });
+			if (response.status === 200){
+				setMembers();
+			}
+        } catch (error) {
+            console.error(error);
+        }
+	}
+
 	const renderJoinRequests = () => {
 		return (
 			<ul className="text-[20px]">
 				{joinRequests.map(
 				(item) =>(
-				<li key={item.id} className="flex hover:text-orange-400">
+				<li key={item.id} className="flex m-2 hover:text-orange-400">
 					<div className="w-[50%]">{item.name}</div>
 					<div className="w-[40%]">{item.createdTime}</div>
-					<div className="w-[10%] text-center">✅</div>
+					<button className="w-[10%] mr-2 px-1 bg-orange-400 hover:bg-orange-500 text-white text-[16px] rounded" onClick={()=>{memberJoinOk(item.memberId)}}>승인</button>
 				</li>
 				),
 				)}
@@ -128,7 +148,7 @@ export default function MemberManage() {
 	};
 	return (
 		<AdminBody title={"Member Management"}>
-			<AdminContentBlock title={"Members"} contents={renderMembers}/>
+			<AdminContentBlock title={"Member"} contents={renderMembers}/>
 			<AdminContentBlock title={"Join Request"} contents={renderJoinRequests}/>
 		</AdminBody>
 	);

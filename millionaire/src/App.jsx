@@ -24,6 +24,7 @@ function App() {
 	};
 
 	return (
+		<div className="background">
 		<BrowserRouter>
 			<Routes>
 				<Route
@@ -33,7 +34,7 @@ function App() {
 							<Home />
 						</ProtectedRoute>
 					}
-				/>
+					/>
 				<Route path="/login" element={<Login />} />
 				<Route path="/auth/google/callback" element={<GoogleCallback />} />
 				<Route
@@ -43,7 +44,7 @@ function App() {
 							<Main />
 						</ProtectedRoute>
 					}
-				/>
+					/>
 				<Route
 					path="/admin"
 					element={
@@ -51,9 +52,10 @@ function App() {
 							<Admin />
 						</ProtectedRoute>
 					}
-				/>
+					/>
 			</Routes>
 		</BrowserRouter>
+		</div>
 	);
 }
 
