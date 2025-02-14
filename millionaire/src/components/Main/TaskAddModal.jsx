@@ -3,10 +3,19 @@ import { FaTimes } from "react-icons/fa";
 import { TASK_LENGTH } from "../../constants/CONTENT_LENGTH.js";
 import postAPI from "../../apis/post.js";
 
-export default function TaskAddModal({ title, onClose, onCreateTask }) {
+export default function TaskAddModal({ groupId, title, onClose, onCreateTask }) {
 	const [content, setContent] = useState("");
 	const [selectedGoal, setSelectedGoal] = useState("daily");
 	const [dueDate, setDueDate] = useState("");
+
+	const goals = ["monthly", "weekly", "daily"];
+	const description_values = [
+		"매월 1일 23:59 전까지 설정 가능",
+		"매주 일요일 23:59 전까지 설정 가능",
+		"전일 23:00 ~ 당일 10:00 설정 가능"
+	];
+
+	const descriptions = Object.fromEntries(goals.map((goal, i) => [goal, description_values[i]]));
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -17,7 +26,7 @@ export default function TaskAddModal({ title, onClose, onCreateTask }) {
 
 		const formattedDate = formatDateForSubmit(dueDate);
 		const requestBody = {
-			groupId: 1,
+			groupId: groupId,
 			memberId: 1,
 			dueDate: formattedDate,
 			content,
@@ -39,7 +48,43 @@ export default function TaskAddModal({ title, onClose, onCreateTask }) {
 		return new Date(year, month, 0).getDate();
 	};
 
+	const checkDateNull = (date) => {
+		const now = new Date();
+
+		if (date.length)
+			return date;
+
+		if (selectedGoal === "monthly") {
+			if (now.getDate() !== 1)
+				now.setMonth(now.getMonth() + 2);
+			return now.getFullYear() + "-" + String(now.getMonth()).padStart(2, '0');
+		}
+
+		if (selectedGoal === "weekly") {
+			if (now.getDay() !== 0)
+				now.setDate(now.getDate() + (7 - now.getDay()));
+			return now.toISOString().split('T')[0];
+		} 
+		
+		if (selectedGoal == "daily") {
+			const today3AM = new Date(
+				now.getFullYear(),
+				now.getMonth(),
+				now.getDate(),
+				3,
+				0,
+				0
+			  );
+			
+			if (now > today3AM)
+				now.setDate(now.getDate() + 1);
+
+			return now.toISOString().split('T')[0];
+		}
+	}
+
 	const formatDateForSubmit = (date) => {
+		date = checkDateNull(date);
 		if (selectedGoal === "monthly") {
 			const lastDay = getLastDayOfMonth(date);
 			return `${date}-${String(lastDay).padStart(2, "0")}`;
@@ -83,11 +128,10 @@ export default function TaskAddModal({ title, onClose, onCreateTask }) {
 		const selectedMonth = new Date(e.target.value + "-01");
 		const today = new Date();
 
-		today.setDate(1);
-		today.setHours(0, 0, 0, 0);
+		selectedMonth.setHours(23, 59, 0, 0);
 
 		if (selectedMonth < today) {
-			alert("과거 월은 선택할 수 없습니다.");
+			alert("목표 설정 기간이 지난 월은 선택할 수 없습니다.");
 			setDueDate("");
 			return;
 		}
@@ -135,7 +179,7 @@ export default function TaskAddModal({ title, onClose, onCreateTask }) {
 				</button>
 				<h2 className="mb-4 text-2xl font-bold text-gray-800">{title}</h2>
 				<div className="flex gap-[20px] mb-[20px]">
-					{["monthly", "weekly", "daily"].map((goal) => (
+					{goals.map((goal) => (
 						<button
 							key={goal}
 							onClick={() => handleGoalSelect(goal)}
@@ -147,11 +191,23 @@ export default function TaskAddModal({ title, onClose, onCreateTask }) {
 						</button>
 					))}
 				</div>
-				<div className="mb-4 text-sm text-gray-500">
-					created_at : {new Date().toLocaleDateString()}
+				<div className="mb-2 text-sm text-gray-500">
+						{descriptions[selectedGoal]}
+				</div>
+				<div className="mb-2 text-sm text-gray-500">
+					created_at : {
+						new Date().toLocaleDateString("ko-KR", {
+							year: "numeric",
+							month: "2-digit",
+							day: "2-digit",
+							hour: "2-digit",
+							minute: "2-digit",
+							second: "2-digit"
+							})
+						}
 				</div>
 				<div className="mb-4 text-sm text-gray-500">
-					due_date :{renderDateInput()}
+					due_date :{renderDateInput()} (설정 안하면 설정 가능 일로 자동 설정)
 				</div>
 				<form onSubmit={handleSubmit} className="space-y-4">
 					<div className="p-4 border rounded-lg">
