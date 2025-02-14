@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { FaPlus, FaTimes } from "react-icons/fa";
 import postAPI from "../apis/post.js";
 
-export default function AuthModal({ taskId, onClose }) {
+export default function AuthModal({ task, onClose }) {
 	const [content, setContent] = useState("");
 	const [image, setImage] = useState(null);
 	const [preview, setPreview] = useState(null);
@@ -57,7 +57,7 @@ export default function AuthModal({ taskId, onClose }) {
 
 	return (
 		<div
-			className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50"
+			className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-100"
 			onClick={handleOutsideClick}
 		>
 			<div className="relative w-[500px] max-w-[90%] p-6 rounded-lg bg-white">
@@ -68,17 +68,26 @@ export default function AuthModal({ taskId, onClose }) {
 					<FaTimes className="w-5 h-5" />
 				</button>
 				<h2 className="mb-4 text-2xl font-bold text-gray-800">
-					세후 1억 프로젝트 완성하기
+					{task.content}
 				</h2>
 				<div className="mb-4 text-sm text-gray-500">
-					created_at : {new Date().toLocaleDateString()}
+					인증시간 : {
+						new Date().toLocaleDateString("ko-KR", {
+							year: "numeric",
+							month: "2-digit",
+							day: "2-digit",
+							hour: "2-digit",
+							minute: "2-digit",
+							second: "2-digit"
+							})
+						}
 				</div>
 				<form onSubmit={handleSubmit} className="space-y-4">
 					<div className="p-4 border rounded-lg">
 						<textarea
 							value={content}
 							onChange={(e) => setContent(e.target.value)}
-							placeholder="할 일을 입력하세요"
+							placeholder="인증 내용을 입력하세요."
 							className="w-full h-20 resize-none text-gray-700 focus:outline-none"
 						/>
 						<div className="text-right text-sm text-gray-500">
@@ -137,7 +146,7 @@ export default function AuthModal({ taskId, onClose }) {
 
 			{showLargePreview && (
 				<div
-					className="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-75"
+					className="fixed inset-0 z-100 flex justify-center items-center bg-black bg-opacity-75"
 					onClick={() => setShowLargePreview(false)}
 				>
 					<div

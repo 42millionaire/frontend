@@ -26,11 +26,11 @@ export default function TaskModal({ isOpen, onClose, task }) {
 	const handleAuthClose = () => {
 		setShowAuthModal(false);
 	};
-
+	console.log(showAuthModal)
 	return (
 		<>
-			<div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-				<div className="bg-white rounded-lg w-full max-w-md mx-4 relative">
+			<div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 ">
+				<div className={"bg-white rounded-lg w-full max-w-md mx-4 relative" + (showAuthModal ? "hidden" : "")}>
 					<button
 						onClick={onClose}
 						className="absolute right-4 top-4 p-1 hover:bg-gray-200 rounded-full transition-colors"
@@ -101,12 +101,11 @@ export default function TaskModal({ isOpen, onClose, task }) {
 						</div>
 					</div>
 				</div>
+				{/* AuthModal 조건부 렌더링 */}
+				{showAuthModal && (
+					<AuthModal task={task} onClose={handleAuthClose} />
+				)}
 			</div>
-
-			{/* AuthModal 조건부 렌더링 */}
-			{showAuthModal && (
-				<AuthModal taskId={task.taskId} onClose={handleAuthClose} />
-			)}
 		</>
 	);
 }
