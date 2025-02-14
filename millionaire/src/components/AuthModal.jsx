@@ -11,10 +11,19 @@ export default function AuthModal({ task, onClose }) {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		const api_url = task.status === "deny" ? "/appeal" : "/verification";
+		const isFormData = task.status === "deny" ? false : true;
+
 		const formData = new FormData();
 		formData.append("taskId", task.taskId);
 		formData.append("content", content);
-		const result = await postAPI("/verification", formData, true);
+
+		const requestBody = {
+			taskId: task.taskId,
+			content
+		};
+
+		const result = await postAPI(api_url, task.status === "deny" ? requestBody : formData, isFormData);
 		if (result.error) {
 			alert("인증 요청에 실패했습니다.");
 		} else {
@@ -136,7 +145,7 @@ export default function AuthModal({ task, onClose }) {
 						type="submit"
 						className="w-full py-2 rounded-lg bg-gray-800 text-white hover:bg-gray-700 transition-colors"
 					>
-						제출하기
+						{task.status === "deny" ? "이의제기" : "제출하기"}
 					</button>
 				</form>
 			</div>
