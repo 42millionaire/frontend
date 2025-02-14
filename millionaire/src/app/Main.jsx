@@ -14,17 +14,17 @@ export default function Main() {
 	const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
 	const [cards, setCards] = useState([]);
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const { data: groupTitle } = useMainAPI(
+	const { data: groupInfo } = useMainAPI(
 		"group",
-		(data) => data.groupResponses[1].groupName,
+		(data) => data.groupResponses[0]
 	);
-	const { data: members } = useMainAPI("member", (data) => data.members);
+	const { data: members } = useMainAPI("groupmember/1", (data) => data.groupMembers);
 	const { data: notice } = useMainAPI("group/notice/1", (data) => data.notice);
 	const { weeklyCards, monthlyCards } = calcCards(cards);
 
 	const loadCards = async () => {
 		const cardsData = await fetchCards(
-			1,
+			groupInfo ? groupInfo.groupId : 1,
 			1,
 			new Date().getFullYear(),
 			selectedMonth,
@@ -48,11 +48,11 @@ export default function Main() {
 			))}
 		</div>
 	);
-
+	
 	return (
 		<div className="flex h-screen bg-gray-900 text-white">
 			<div className="flex flex-col w-1/4 p-4 border-r border-gray-700 gap-[5rem]">
-				<MainGroupName groupName={groupTitle} />
+				<MainGroupName groupName={ groupInfo ? groupInfo.groupName : ""} />
 				<MemberList members={members} />
 				<MainNotice notice={notice} />
 			</div>
@@ -77,7 +77,8 @@ export default function Main() {
 			<TaskAddButton onAddTask={() => setIsModalOpen(true)} />
 			{isModalOpen && (
 				<TaskAddModal
-					title={groupTitle}
+					groupId={groupInfo.groupId}
+					title={groupInfo.groupName}
 					onClose={() => setIsModalOpen(false)}
 					onCreateTask={handleTaskCreated}
 				/>
