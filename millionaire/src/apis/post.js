@@ -1,16 +1,16 @@
 import BASE_URL from "../constants/URL";
 
-const postAPI = async (path, RequestBody) => {
+const postAPI = async (path, RequestBody, isFormData=false) => {
 	try {
 		const url = new URL(`${BASE_URL}${path}`);
 
 		const response = await fetch(url, {
 			method: "POST",
-			headers: {
+			headers: isFormData ? {} : { 
 				"Accept": "application/json",
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify(RequestBody),
+			body: isFormData ? RequestBody : JSON.stringify(RequestBody),
 		});
 
 		if (response.ok) {

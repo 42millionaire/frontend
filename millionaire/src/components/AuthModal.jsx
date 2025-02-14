@@ -12,17 +12,14 @@ export default function AuthModal({ task, onClose }) {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const formData = new FormData();
-		const requestBody = {
-			groupId: 1,
-			memberId: 1,
-			dueDate: new Date().toLocaleDateString(),
-			content,
-		};
-		const result = await postAPI("verification", requestBody);
+		formData.append("taskId", task.taskId);
+		formData.append("content", content);
+		const result = await postAPI("/verification", formData, true);
 		if (result.error) {
-			alert("할 일 추가에 실패했습니다.");
+			alert("인증 요청에 실패했습니다.");
 		} else {
 			onClose();
+			window.location.reload();
 		}
 	};
 
