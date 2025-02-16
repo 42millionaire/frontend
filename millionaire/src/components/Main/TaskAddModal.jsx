@@ -12,7 +12,7 @@ export default function TaskAddModal({ groupId, title, onClose, onCreateTask }) 
 	const description_values = [
 		"매월 1일 23:59 전까지 설정 가능",
 		"매주 일요일 23:59 전까지 설정 가능",
-		"전일 23:00 ~ 당일 10:00 설정 가능"
+		"당일 03:00 설정 가능"
 	];
 
 	const descriptions = Object.fromEntries(goals.map((goal, i) => [goal, description_values[i]]));
@@ -62,7 +62,7 @@ export default function TaskAddModal({ groupId, title, onClose, onCreateTask }) 
 
 		if (selectedGoal === "weekly") {
 			if (now.getDay() !== 0)
-				now.setDate(now.getDate() + (7 - now.getDay()));
+				now.setDate(now.getDate() + (14 - now.getDay()));
 			return now.toISOString().split('T')[0];
 		} 
 		
