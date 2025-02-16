@@ -59,14 +59,14 @@ const TaskCard = ({ task }) => {
 					onClick={() => setIsModalOpen(true)}
 				>
 					<div className="absolute inset-0 group-hover:bg-white/5 transition-colors duration-200" />
-					<div className="absolute inset-0 flex items-center justify-center text-white opacity-50 pointer-events-none">
-						<div className="text-4xl font-bold uppercase whitespace-normal text-center">
+					<div className="absolute inset-0 flex items-center justify-center text-white opacity-20 pointer-events-none">
+						<div className="text-xl font-bold uppercase whitespace-normal text-center">
 							{task.type}
 						</div>
 					</div>
 					<div className="relative text-white flex flex-col h-full">
 						<div className="flex-grow overflow-hidden max-h-[60px]">
-							<h3 className="font-bold text-sm leading-tight">
+							<h3 className="font-bold text-2xl leading-tight">
 								{task.content}
 							</h3>
 						</div>
