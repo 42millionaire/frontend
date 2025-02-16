@@ -195,7 +195,7 @@ export default function TaskAddModal({ groupId, title, onClose, onCreateTask }) 
 						{descriptions[selectedGoal]}
 				</div>
 				<div className="mb-2 text-sm text-gray-500">
-					created_at : {
+					생성일 : {
 						new Date().toLocaleDateString("ko-KR", {
 							year: "numeric",
 							month: "2-digit",
@@ -207,7 +207,7 @@ export default function TaskAddModal({ groupId, title, onClose, onCreateTask }) 
 						}
 				</div>
 				<div className="mb-4 text-sm text-gray-500">
-					due_date :{renderDateInput()} (설정 안하면 설정 가능 일로 자동 설정)
+					마감일 :{renderDateInput()} (설정 안하면 설정 가능 일로 자동 설정)
 				</div>
 				<form onSubmit={handleSubmit} className="space-y-4">
 					<div className="p-4 border rounded-lg">

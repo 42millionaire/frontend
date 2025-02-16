@@ -59,8 +59,8 @@ const TaskCard = ({ task }) => {
 					onClick={() => setIsModalOpen(true)}
 				>
 					<div className="absolute inset-0 group-hover:bg-white/5 transition-colors duration-200" />
-					<div className="absolute inset-0 flex items-center justify-center text-white opacity-20 pointer-events-none">
-						<div className="text-xl font-bold uppercase whitespace-normal text-center">
+					<div className="absolute inset-0 flex items-center justify-center text-white opacity-10 pointer-events-none">
+						<div className="text-4xl font-bold uppercase whitespace-normal text-center">
 							{task.type}
 						</div>
 					</div>
@@ -70,8 +70,13 @@ const TaskCard = ({ task }) => {
 								{task.content}
 							</h3>
 						</div>
-						<p className="mt-2 text-sm">
-							Due: {new Date(task.dueDate).toLocaleDateString()}
+						<p className="mt-2 text-sm font-light opacity-70">
+							마감: {new Date(task.dueDate).toLocaleDateString("ko-KR", {
+							year: "numeric",
+							month: "2-digit",
+							day: "2-digit"
+							})
+						}
 						</p>
 					</div>
 				</div>

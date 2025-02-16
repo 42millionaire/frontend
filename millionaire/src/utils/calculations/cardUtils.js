@@ -1,17 +1,14 @@
 const calcCards = (cards) => {
-	const weeklyCards = { 1: [], 2: [], 3: [], 4: [], 5: [] };
+	const weeklyCards = { 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] };
 	const monthlyCards = [];
 
 	cards.forEach((card) => {
 		const dueDate = new Date(card.dueDate);
 		const dayOfMonth = dueDate.getDate();
-		let weekNumber;
-
-		if (dayOfMonth <= 7) weekNumber = 1;
-		else if (dayOfMonth <= 14) weekNumber = 2;
-		else if (dayOfMonth <= 21) weekNumber = 3;
-		else if (dayOfMonth <= 28) weekNumber = 4;
-		else weekNumber = 5;
+		const firstDay = new Date(dueDate.getFullYear(), dueDate.getMonth(), 1);
+		const firstSunDay = 1 + ((7 - firstDay.getDay()) % 7);
+		const weekCalc = Math.floor((dayOfMonth - firstSunDay) / 7);
+		const weekNumber = 1 + (weekCalc < 0 ? 0 : weekCalc + 1);
 
 		if (card.type === "monthly") {
 			monthlyCards.push(card);
