@@ -1,11 +1,21 @@
-export default function MemberList({ members, handleClickMember }) {
-	//memberId로 눌렀을 시, 해당 멤버의 카드만 보이도록.
+export default function MemberList({ members, handleClickMember, currentUserId}) {
+	const me = members?.find((member) => member.memberId === parseInt(currentUserId));
+	console.log(me?.memberId);
+	const others = members?.filter((member) => member.memberId !== parseInt(currentUserId));
 
 	return (
 		<section>
-			<h2 className="text-2xl font-bold mb-4">Member</h2>
-			<div className="space-y-2">
-				{members?.map((member) => (
+			<span
+				key={me?.memberId}
+				className="text-gray-300 text-xl font-semibold cursor-pointer hover:underline"
+				onClick={() => handleClickMember(me?.memberId, me?.name)}
+			>
+				Hello, {me?.name}
+			</span>
+
+			<h2 className="text-2xl font-bold mt-6">Other Members</h2>
+			<div className="space-y-1">
+				{others?.map((member) => (
 					<div
 						key={member.memberId}
 						className="text-gray-300 text-xl font-semibold cursor-pointer hover:underline"

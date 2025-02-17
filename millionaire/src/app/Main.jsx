@@ -73,9 +73,9 @@ export default function Main() {
 	
 	return (
 		<div className="flex h-screen bg-gray-900 text-white">
-			<div className="flex flex-col w-1/4 p-4 border-r border-gray-700 gap-[5rem]">
+			<div className="flex flex-col w-1/5 p-4 border-r border-gray-700 gap-[2rem]">
 				<MainGroupName groupName={ groupInfo ? groupInfo.groupName : ""} />
-				<MemberList members={members} handleClickMember={handleClickMember}/>
+				<MemberList members={members} handleClickMember={handleClickMember} currentUserId={userInfo.id}/>
 				<MainNotice notice={notice} />
 			</div>
 			<div className="w-3/4 p-4 overflow-auto">
