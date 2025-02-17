@@ -4,28 +4,33 @@ import { sortCards, calcCards } from "../utils/calculations/cardUtils.js";
 import MainHeader from "../components/Main/MainHeader.jsx";
 import MainNotice from "../components/Main/MainNotice.jsx";
 import MemberList from "../components/MemberList.jsx";
-import useMainAPI from "../hooks/useMain.js";
 import TaskAddButton from "../components/Main/TaskAddButton.jsx";
 import TaskAddModal from "../components/Main/TaskAddModal.jsx";
 import TaskCard from "../components/Main/TaskCard.jsx";
 import MainGroupName from "../components/Main/MainGroupName.jsx";
 
+import useMainAPI from "../hooks/useMain.js";
+import getUserInfo from "../hooks/getUserInfo.js";
+
 export default function Main() {
 	const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
 	const [cards, setCards] = useState([]);
 	const [isModalOpen, setIsModalOpen] = useState(false);
+
 	const { data: groupInfo } = useMainAPI(
 		"group",
 		(data) => data.groupResponses[0]
 	);
 	const { data: members } = useMainAPI("groupmember/1", (data) => data.groupMembers);
 	const { data: notice } = useMainAPI("group/notice/1", (data) => data.notice);
+	const userInfo = getUserInfo();// useMainAPI("", (data) => data.user);
+	
 	const { weeklyCards, monthlyCards } = calcCards(cards);
 
 	const loadCards = async () => {
 		const cardsData = await fetchCards(
-			groupInfo ? groupInfo.groupId : 1,
-			1,
+			groupInfo ? groupInfo.groupId : -1,
+			userInfo ? userInfo.id : -1,
 			new Date().getFullYear(),
 			selectedMonth,
 		);
@@ -33,8 +38,9 @@ export default function Main() {
 	};
 
 	useEffect(() => {
-		loadCards();
-	}, [selectedMonth]);
+		if (groupInfo && userInfo)
+			loadCards();
+	}, [groupInfo, userInfo, selectedMonth]);
 
 	const handleTaskCreated = async () => {
 		await loadCards();
@@ -77,8 +83,8 @@ export default function Main() {
 			<TaskAddButton onAddTask={() => setIsModalOpen(true)} />
 			{isModalOpen && (
 				<TaskAddModal
-					groupId={groupInfo.groupId}
-					title={groupInfo.groupName}
+					groupInfo={groupInfo}
+					userInfo={userInfo}
 					onClose={() => setIsModalOpen(false)}
 					onCreateTask={handleTaskCreated}
 				/>

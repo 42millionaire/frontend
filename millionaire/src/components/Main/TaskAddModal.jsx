@@ -3,7 +3,7 @@ import { FaTimes } from "react-icons/fa";
 import { TASK_LENGTH } from "../../constants/CONTENT_LENGTH.js";
 import postAPI from "../../apis/post.js";
 
-export default function TaskAddModal({ groupId, title, onClose, onCreateTask }) {
+export default function TaskAddModal({ groupInfo, userInfo, onClose, onCreateTask }) {
 	const [content, setContent] = useState("");
 	const [selectedGoal, setSelectedGoal] = useState("daily");
 	const [dueDate, setDueDate] = useState("");
@@ -12,7 +12,7 @@ export default function TaskAddModal({ groupId, title, onClose, onCreateTask }) 
 	const description_values = [
 		"매월 1일 23:59 전까지 설정 가능",
 		"매주 일요일 23:59 전까지 설정 가능",
-		"당일 03:00 설정 가능"
+		"매일 03:00 전까지 설정 가능"
 	];
 
 	const descriptions = Object.fromEntries(goals.map((goal, i) => [goal, description_values[i]]));
@@ -26,8 +26,8 @@ export default function TaskAddModal({ groupId, title, onClose, onCreateTask }) 
 
 		const formattedDate = formatDateForSubmit(dueDate);
 		const requestBody = {
-			groupId: groupId,
-			memberId: 1,
+			groupId: groupInfo.groupId,
+			memberId: userInfo.id,
 			dueDate: formattedDate,
 			content,
 			type: selectedGoal,
@@ -177,7 +177,7 @@ export default function TaskAddModal({ groupId, title, onClose, onCreateTask }) 
 				>
 					<FaTimes className="w-5 h-5" />
 				</button>
-				<h2 className="mb-4 text-2xl font-bold text-gray-800">{title}</h2>
+				<h2 className="mb-4 text-2xl font-bold text-gray-800">{groupInfo.groupName}</h2>
 				<div className="flex gap-[20px] mb-[20px]">
 					{goals.map((goal) => (
 						<button
