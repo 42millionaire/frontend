@@ -19,6 +19,7 @@ export default function Main() {
 	const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
 	const [cards, setCards] = useState([]);
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isShowOtherMembers, setIsShowOtherMembers] = useState(false);
 	const [userName, setUserName] = useState(userInfo.name);
 
 	const { data: groupInfo, loading } = useMainAPI(
@@ -42,10 +43,15 @@ export default function Main() {
 		setCards(cardsData);
 	};
 
-	const handleClickMember = async (mamberId, memberName) => {
+	const handleClickMember = async (memberId, memberName) => {
+		if (memberId !== parseInt(userInfo.id))
+			setIsShowOtherMembers(true);
+		else
+			setIsShowOtherMembers(false);
+
 		const cardsData = await fetchCards(
 			groupInfo.groupId,
-			mamberId,
+			memberId,
 			new Date().getFullYear(),
 			selectedMonth,
 		);
@@ -101,8 +107,8 @@ export default function Main() {
 				)
 			}
 				</div>
-				<TaskAddButton onAddTask={() => setIsModalOpen(true)} />
-				{isModalOpen && (
+				{!isShowOtherMembers && (<TaskAddButton onAddTask={() => setIsModalOpen(true)} />)}
+				{!isShowOtherMembers && isModalOpen && (
 					<TaskAddModal
 					groupInfo={groupInfo}
 					userInfo={userInfo}

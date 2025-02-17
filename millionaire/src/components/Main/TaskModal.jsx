@@ -92,7 +92,7 @@ export default function TaskModal({ isOpen, onClose, task }) {
 									onClick={handleAuthClick}
 									className="w-full mt-4 py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
 								>
-									인증하기
+									{task.status === "deny" ? "이의제기": "인증하기"}
 								</button>
 							)}
 						</div>
