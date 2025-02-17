@@ -17,6 +17,7 @@ export default function AuthModal({ task, onClose }) {
 		const formData = new FormData();
 		formData.append("taskId", task.taskId);
 		formData.append("content", content);
+		formData.append('images', image);
 
 		const requestBody = {
 			taskId: task.taskId,
