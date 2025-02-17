@@ -5,6 +5,7 @@ import { getAPI } from "../apis/get.js";
 import Modal from "./Modal.jsx";
 import Li from "./Li.jsx";
 import BASE_URL from "../constants/URL.js";
+import { printDateFormat } from "../utils/dateUtils.js";
 
 const Authentication = () => {
 	const [pend, setPend] = useState([]);
@@ -181,8 +182,8 @@ const Authentication = () => {
 			setPendModalContent(
 				<div className="text-black">
 					<h1 className="mb-[10px] text-[20px]">{content}</h1>
-					<div className="text-[12px]">created at: {data.createdTime}</div>
-					<div className="text-[12px]">updated at: {data.updatedTime}</div>
+					<div className="text-[12px]">목표 생성일: {printDateFormat(data.createdTime)}</div>
+					<div className="text-[12px]">목표 수정일: {printDateFormat(data.updatedTime)}</div>
 					<hr className="mt-[10px] mb-[10px]"></hr>
 					<div className="mt-[5px] text-black border border-black rounded-lg p-[5px] overflow-auto h-[400px]">
 						<div className="mb-[10px]">{data.content}</div>

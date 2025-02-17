@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { FaPlus, FaTimes } from "react-icons/fa";
 import postAPI from "../apis/post.js";
+import { printDateFormat } from "../utils/dateUtils.js";
 
 export default function AuthModal({ task, onClose }) {
 	const [content, setContent] = useState("");
@@ -78,16 +79,7 @@ export default function AuthModal({ task, onClose }) {
 					{task.content}
 				</h2>
 				<div className="mb-4 text-sm text-gray-500">
-					인증시간 : {
-						new Date().toLocaleDateString("ko-KR", {
-							year: "numeric",
-							month: "2-digit",
-							day: "2-digit",
-							hour: "2-digit",
-							minute: "2-digit",
-							second: "2-digit"
-							})
-						}
+					인증시간 : { printDateFormat() }
 				</div>
 				<form onSubmit={handleSubmit} className="space-y-4">
 					<div className="p-4 border rounded-lg">

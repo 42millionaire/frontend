@@ -1,6 +1,7 @@
 import { useState } from "react";
 import useMainAPI from "../../hooks/useMain";
 import TaskModal from "./TaskModal";
+import { printDateFormat } from "../../utils/dateUtils";
 
 const TaskCard = ({ task }) => {
 	const { data: taskDetails } = useMainAPI(
@@ -71,12 +72,7 @@ const TaskCard = ({ task }) => {
 							</h3>
 						</div>
 						<p className="mt-2 text-sm font-light opacity-70">
-							마감: {new Date(task.dueDate).toLocaleDateString("ko-KR", {
-							year: "numeric",
-							month: "2-digit",
-							day: "2-digit"
-							})
-						}
+							마감: { printDateFormat(task.dueDate, false) }
 						</p>
 					</div>
 				</div>

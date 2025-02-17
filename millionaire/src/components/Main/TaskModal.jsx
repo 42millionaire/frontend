@@ -1,6 +1,7 @@
 import { X } from "lucide-react";
 import { useState } from "react";
 import AuthModal from "../AuthModal";
+import { printDateFormat } from "../../utils/dateUtils";
 
 export default function TaskModal({ isOpen, onClose, task }) {
 	const [showAuthModal, setShowAuthModal] = useState(false);
@@ -48,7 +49,7 @@ export default function TaskModal({ isOpen, onClose, task }) {
 							<h2 className="text-xl font-bold">{task.content}</h2>
 							<div>
 								<span className="text-xs font-medium">
-									Created at: {task.createdTime}
+									목표 생성일 : {printDateFormat(task.createdTime)}
 								</span>
 							</div>
 						</div>
@@ -79,13 +80,9 @@ export default function TaskModal({ isOpen, onClose, task }) {
 							</div>
 
 							<div>
-								<div className="text-sm text-gray-500">Due Date</div>
+								<div className="text-sm text-gray-500">인증 마감일</div>
 								<div className="font-medium text-gray-500">
-									{new Date(task.dueDate).toLocaleDateString("ko-KR", {
-										year: "numeric",
-										month: "long",
-										day: "numeric",
-									})}
+									{printDateFormat(task.dueDate, false)}
 								</div>
 							</div>
 

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { TASK_LENGTH } from "../../constants/CONTENT_LENGTH.js";
 import postAPI from "../../apis/post.js";
+import { printDateFormat } from "../../utils/dateUtils.js";
 
 export default function TaskAddModal({ groupInfo, userInfo, onClose, onCreateTask }) {
 	const [content, setContent] = useState("");
@@ -195,16 +196,7 @@ export default function TaskAddModal({ groupInfo, userInfo, onClose, onCreateTas
 						{descriptions[selectedGoal]}
 				</div>
 				<div className="mb-2 text-sm text-gray-500">
-					생성일 : {
-						new Date().toLocaleDateString("ko-KR", {
-							year: "numeric",
-							month: "2-digit",
-							day: "2-digit",
-							hour: "2-digit",
-							minute: "2-digit",
-							second: "2-digit"
-							})
-						}
+					생성일 : { printDateFormat() }
 				</div>
 				<div className="mb-4 text-sm text-gray-500">
 					마감일 :{renderDateInput()} (설정 안하면 설정 가능 일로 자동 설정)
