@@ -3,7 +3,7 @@ import { useState } from "react";
 import AuthModal from "../AuthModal";
 import { printDateFormat } from "../../utils/dateUtils";
 
-export default function TaskModal({ isOpen, onClose, task }) {
+export default function TaskModal({ isOpen, onClose, task, isOtherMember }) {
 	const [showAuthModal, setShowAuthModal] = useState(false);
 
 	if (!isOpen) return null;
@@ -27,7 +27,7 @@ export default function TaskModal({ isOpen, onClose, task }) {
 	const handleAuthClose = () => {
 		setShowAuthModal(false);
 	};
-	console.log(showAuthModal)
+	
 	return (
 		<>
 			<div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 ">
@@ -87,7 +87,7 @@ export default function TaskModal({ isOpen, onClose, task }) {
 							</div>
 
 							{/* 인증 버튼 추가 */}
-							{isDueDateValid() && task.status !== "accept" && (
+							{!isOtherMember && isDueDateValid() && task.status !== "accept" && (
 								<button
 									onClick={handleAuthClick}
 									className="w-full mt-4 py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"

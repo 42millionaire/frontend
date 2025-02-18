@@ -3,7 +3,7 @@ import useMainAPI from "../../hooks/useMain";
 import TaskModal from "./TaskModal";
 import { printDateFormat } from "../../utils/dateUtils";
 
-const TaskCard = ({ task }) => {
+const TaskCard = ({ task, isOtherMember }) => {
 	const { data: taskDetails } = useMainAPI(
 		`task/${task.taskId}`,
 		(data) => data,
@@ -82,6 +82,7 @@ const TaskCard = ({ task }) => {
 				isOpen={isModalOpen}
 				onClose={() => setIsModalOpen(false)}
 				task={taskDetails}
+				isOtherMember={isOtherMember}
 			/>
 		</>
 	);

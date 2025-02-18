@@ -21,6 +21,7 @@ export default function Main() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isShowOtherMembers, setIsShowOtherMembers] = useState(false);
 	const [userName, setUserName] = useState(userInfo.name);
+	const [userId, setUserId] = useState(userInfo.id);
 
 	const { data: groupInfo, loading } = useMainAPI(
 		"group",
@@ -36,7 +37,7 @@ export default function Main() {
 		
 		const cardsData = await fetchCards(
 			groupInfo.groupId,
-			userInfo.id,
+			userId,
 			new Date().getFullYear(),
 			selectedMonth,
 		);
@@ -56,6 +57,7 @@ export default function Main() {
 			selectedMonth,
 		);
 		setUserName(memberName);
+		setUserId(memberId);
 		setCards(cardsData);
 	};
 
@@ -72,7 +74,7 @@ export default function Main() {
 	const renderCards = (cards) => (
 		<div className="flex flex-wrap">
 			{sortCards(cards).map((card) => (
-				<TaskCard key={card.taskId} task={card} />
+				<TaskCard key={card.taskId} task={card} isOtherMember={isShowOtherMembers}/>
 			))}
 		</div>
 	);
