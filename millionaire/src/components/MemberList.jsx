@@ -1,6 +1,5 @@
 export default function MemberList({ members, handleClickMember, currentUserId}) {
 	const me = members?.find((member) => member.memberId === parseInt(currentUserId));
-	console.log(me?.memberId);
 	const others = members?.filter((member) => member.memberId !== parseInt(currentUserId));
 
 	return (
