@@ -2,6 +2,7 @@ import { X } from "lucide-react";
 import { useState } from "react";
 import AuthModal from "../AuthModal";
 import { printDateFormat } from "../../utils/dateUtils";
+import deleteAPI from "../../apis/delete";
 
 export default function TaskModal({ isOpen, onClose, task, isOtherMember }) {
 	const [showAuthModal, setShowAuthModal] = useState(false);
@@ -26,6 +27,22 @@ export default function TaskModal({ isOpen, onClose, task, isOtherMember }) {
 
 	const handleAuthClose = () => {
 		setShowAuthModal(false);
+	};
+
+	const handleTaskDel = async (taskId) => {
+		const requestBody = {
+			taskId
+		}
+		console.log(JSON.stringify(requestBody));
+		const res = await deleteAPI("/task", requestBody);
+
+		if (res === null) {
+			alert("삭제 실패!");
+			return ;
+		}
+
+		alert(res);
+		window.location.reload();
 	};
 	
 	return (
@@ -87,14 +104,23 @@ export default function TaskModal({ isOpen, onClose, task, isOtherMember }) {
 							</div>
 
 							{/* 인증 버튼 추가 */}
-							{!isOtherMember && isDueDateValid() && task.status !== "accept" && (
-								<button
-									onClick={handleAuthClick}
-									className="w-full mt-4 py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-								>
-									{task.status === "deny" ? "이의제기": "인증하기"}
-								</button>
-							)}
+							<div className="flex justify-content-between">
+								{!isOtherMember && isDueDateValid() && task.status !== "accept" && ( <>
+									<button
+									onClick={() => {handleTaskDel(task.taskId)}}
+										className={`w-full mt-4 mx-1 py-2 px-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors ${task.status === "none" ? "": "hidden"}`}
+									>
+										삭제하기
+									</button>
+									<button
+										onClick={handleAuthClick}
+										className="w-full mt-4 py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+									>
+										{task.status === "deny" ? "이의제기": "인증하기"}
+									</button>
+									</>
+								)}
+							</div>
 						</div>
 					</div>
 				</div>
