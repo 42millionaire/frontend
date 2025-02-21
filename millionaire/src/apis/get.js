@@ -1,6 +1,6 @@
 import BASE_URL from "../constants/URL";
 
-const getAPI = async (path, queryParams = {}, checkStatus = false) => {
+const getAPI = async (path, queryParams = {}) => {
 	try {
 		const url = new URL(`${BASE_URL}/${path}`);
 		Object.keys(queryParams).forEach((key) =>

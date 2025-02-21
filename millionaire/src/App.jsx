@@ -43,8 +43,6 @@ function App() {
 			
 			const token = getUserInfo().id;
 
-			console.log(token);
-
 			if (checking === 409) {
 				navigate("/waiting", { replace: true });
 				return ;
@@ -75,8 +73,25 @@ function App() {
 		return isJoinGroup ? children : null;
 	};
 
-	const ProtectedAdminRoute = () => {
+	const ProtectedAdminRoute = ({ children }) => {
 		const [isAdmin, setIsAdmin] = useState(false);
+		const navigate = useNavigate();
+
+		const handelAdmin = async () => {
+			const response = await getAPI("admin", {"groupId": 1});
+
+			if (response === 403) {
+				alert("관리자가 아닙니다.");
+				navigate("/", { replace: true });
+				return ;
+			} 
+
+			setIsAdmin(response.isAdmin);
+		}
+
+		useEffect(() => {
+			handelAdmin();
+		}, [navigate]);
 
 		return isAdmin ? children : null;
 	}
@@ -101,9 +116,9 @@ function App() {
 					path="/main"
 					element={
 						<ProtectedRoute>
-							{/* <ProtectedGroupRoute> */}
+							<ProtectedGroupRoute>
 								<Main />
-							{/* </ProtectedGroupRoute> */}
+							</ProtectedGroupRoute>
 						</ProtectedRoute>
 					}
 					/>
@@ -111,11 +126,11 @@ function App() {
 					path="/admin"
 					element={
 						<ProtectedRoute>
-							{/* <ProtectedGroupRoute>
-								<ProtectedAdminRoute> */}
+							<ProtectedGroupRoute>
+								<ProtectedAdminRoute>
 									<Admin />
-								{/* </ProtectedAdminRoute>
-							</ProtectedGroupRoute> */}
+								</ProtectedAdminRoute>
+							</ProtectedGroupRoute>
 						</ProtectedRoute>
 					}
 					/>
