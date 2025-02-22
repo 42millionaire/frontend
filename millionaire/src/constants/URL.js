@@ -1,3 +1,3 @@
-const BASE_URL = `https://127.0.0.1:8443`;
+const BASE_URL = `http://localhost:9988/api`;
 
 export default BASE_URL;
