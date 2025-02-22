@@ -64,6 +64,12 @@ export default function MemberManage() {
 					"memberId" : memberId,
 				}),
             });
+			const tmp = [];
+			for (let i = 0; i < members.length; i++) {
+				if (members[i].memberId !== memberId)
+					tmp.push(members[i]);
+				setMembers(tmp);
+			}
 			if (response.status === 200){
 				setMembers();
 			}
@@ -123,8 +129,15 @@ export default function MemberManage() {
 					"memberId" : memberId,
 				}),
             });
+			const tmp = [];
+			for (let i = 0; i < joinRequests.length; i++) {
+				if (joinRequests[i].memberId !== memberId)
+					tmp.push(joinRequests[i]);
+				else
+					members.push(joinRequests[i]);
+				setJoinRequests(tmp);
+			}
 			if (response.status === 200){
-				setMembers();
 			}
         } catch (error) {
             console.error(error);

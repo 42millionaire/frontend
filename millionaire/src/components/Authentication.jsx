@@ -68,14 +68,20 @@ const Authentication = () => {
 				}),
             });
             console.log(response);
-			if (response.status === 200){
-				const tmp = [];
+			const tmp = [];
 				for (let i = 0; i < pend.length; i++) {
 					if (pend[i].taskId !== taskId)
 						tmp.push(pend[i]);
 				}
 				setPend(tmp);
-			}
+			// if (response.status === 200){
+			// 	const tmp = [];
+			// 	for (let i = 0; i < pend.length; i++) {
+			// 		if (pend[i].taskId !== taskId)
+			// 			tmp.push(pend[i]);
+			// 	}
+			// 	setPend(tmp);
+			// }
         } catch (error) {
             console.error(error);
         }
