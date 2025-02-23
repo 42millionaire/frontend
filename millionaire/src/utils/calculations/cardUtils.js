@@ -30,11 +30,12 @@ const calcCards = (cards) => {
 		weekNumber = weekNumber < 1 ? 1 : weekNumber; // 최소 주차는 1부터 시작
 
 		const today = new Date();
+		console(today);
 
 		if (card.type === "monthly") {
 			monthlyCards.push(card);
 		} else if (card.type === "weekly" && today.getMonth() < month) {
-			weekNumber = getTotalWeeksInMonth(today.getFullYear(). today.getMonth());
+			weekNumber = getTotalWeeksInMonth(today.getFullYear(), today.getMonth());
 			weeklyCards[weekNumber].push(card);
 		} else {
 			weeklyCards[weekNumber].push(card);
