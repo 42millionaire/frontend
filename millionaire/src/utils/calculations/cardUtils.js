@@ -12,7 +12,7 @@ function getTotalWeeksInMonth(year, month) {
 }
 
 const calcCards = (cards, selectedMonth) => {
-	const weeklyCards = { };
+	const weeklyCards = { 1: [], 2: [], 3: [], 4: [] };
 	const monthlyCards = [];
 
 	cards.forEach((card) => {
@@ -31,7 +31,7 @@ const calcCards = (cards, selectedMonth) => {
 		if (card.type === "monthly") {
             monthlyCards.push(card);
         } else {
-            if (card.type === "weekly" && selectedMonth < month) {
+            if (card.type === "weekly" && selectedMonth < month + 1) {
                 weekNumber = getTotalWeeksInMonth(year, month);
             }
 

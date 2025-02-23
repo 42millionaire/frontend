@@ -102,7 +102,7 @@ export default function Main() {
 					{Object.entries(weeklyCards).map(([week, cards]) => (
 						<div key={week} className="mb-8">
 							<h2 className="text-xl font-bold mb-4">{week} Week</h2>
-							{renderCards(cards)}
+							{cards.length ? renderCards(cards) : <span className="text-sm text-gray-500"> 해당 주에 등록된 할 일이 없습니다.</span>}
 						</div>
 					))}
 				</>
