@@ -1,23 +1,48 @@
+function getTotalWeeksInMonth(year, month) {
+    const firstDayOfMonth = new Date(year, month, 1);
+    const lastDayOfMonth = new Date(year, month + 1, 0); // 해당 월의 마지막 날짜
+
+    // 첫 번째 월요일 찾기
+    const firstMonday = new Date(firstDayOfMonth);
+    firstMonday.setDate(1 + ((8 - firstDayOfMonth.getDay()) % 7));
+
+    // 주차 계산: (마지막 날 - 첫 월요일) / 7 -> 올림 처리
+    const totalWeeks = Math.ceil((lastDayOfMonth.getDate() - firstMonday.getDate() + 1) / 7);
+    
+    return totalWeeks;
+}
+
 const calcCards = (cards) => {
 	const weeklyCards = { 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] };
 	const monthlyCards = [];
 
 	cards.forEach((card) => {
 		const dueDate = new Date(card.dueDate);
+		const year = dueDate.getFullYear();
+		const month = dueDate.getMonth(); // 0-based index
 		const dayOfMonth = dueDate.getDate();
-		const firstDay = new Date(dueDate.getFullYear(), dueDate.getMonth(), 1);
-		const firstSunDay = 1 + ((7 - firstDay.getDay()) % 7);
-		const weekCalc = Math.floor((dayOfMonth - firstSunDay) / 7);
-		const weekNumber = 1 + (weekCalc < 0 ? 0 : weekCalc + 1);
+
+		const firstDayOfMonth = new Date(year, month, 1);
+		const firstMonday = new Date(firstDayOfMonth);
+		firstMonday.setDate(1 + ((8 - firstDayOfMonth.getDay()) % 7)); // 첫 월요일 찾기
+
+		let weekNumber = Math.ceil((dayOfMonth - firstMonday.getDate() + 1) / 7);
+		weekNumber = weekNumber < 1 ? 1 : weekNumber; // 최소 주차는 1부터 시작
+
+		const today = new Date();
 
 		if (card.type === "monthly") {
 			monthlyCards.push(card);
+		} else if (card.type === "weekly" && today.getMonth() < month) {
+			weekNumber = getTotalWeeksInMonth(today.getFullYear(). today.getMonth());
+			weeklyCards[weekNumber].push(card);
 		} else {
 			weeklyCards[weekNumber].push(card);
 		}
 	});
 
 	return { weeklyCards, monthlyCards };
+
 };
 
 const sortCards = (cards) => {

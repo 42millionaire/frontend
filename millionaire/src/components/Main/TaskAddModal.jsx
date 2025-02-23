@@ -64,6 +64,8 @@ export default function TaskAddModal({ groupInfo, userInfo, onClose, onCreateTas
 		if (selectedGoal === "weekly") {
 			if (now.getDay() !== 0)
 				now.setDate(now.getDate() + (14 - now.getDay()));
+			else
+				now.setDate(now.getDate() + 7);
 			return now.toISOString().split('T')[0];
 		} 
 		
