@@ -94,15 +94,15 @@ export default function Main() {
 				/>
 			{ loading && ( <Loading></Loading>) }
 			{ !loading && groupInfo && ( <>
-					<div className="mb-8">
+					<div className="mb-8 border-b-1-indigo-200">
 						<h2 className="text-xl font-bold mb-4">Monthly Goals</h2>
-						{renderCards(monthlyCards)}
+						{monthlyCards.length ? renderCards(monthlyCards) : <span className="text-base text-gray-500"> 등록된 월 목표가 없습니다.</span>}
 					</div>
 
 					{Object.entries(weeklyCards).map(([week, cards]) => (
-						<div key={week} className="mb-8">
+						<div key={week} className="mb-8 border-b-1-indigo-200">
 							<h2 className="text-xl font-bold mb-4">{week} Week</h2>
-							{cards.length ? renderCards(cards) : <span className="text-sm text-gray-500"> 해당 주에 등록된 할 일이 없습니다.</span>}
+							{cards.length ? renderCards(cards) : <span className="text-base text-gray-500"> 해당 주에 등록된 목표가가 없습니다.</span>}
 						</div>
 					))}
 				</>

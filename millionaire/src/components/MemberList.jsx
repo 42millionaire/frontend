@@ -6,7 +6,7 @@ export default function MemberList({ members, handleClickMember, currentUserId})
 		<section>
 			<span
 				key={me?.memberId}
-				className="text-gray-300 text-xl font-semibold cursor-pointer hover:underline"
+				className="text-gray-300 text-2xl font-semibold cursor-pointer hover:underline"
 				onClick={() => handleClickMember(me?.memberId, me?.name)}
 			>
 				Hello, {me?.name}

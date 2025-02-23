@@ -28,11 +28,17 @@ const calcCards = (cards, selectedMonth) => {
 		let weekNumber = Math.ceil((dayOfMonth - firstMonday.getDate() + 1) / 7);
 		weekNumber = weekNumber < 1 ? 1 : weekNumber; // 최소 주차는 1부터 시작
 
+		const lastWeek = getTotalWeeksInMonth(year, month);
+		
+		if (!weeklyCards[lastWeek]) {
+			weeklyCards[lastWeek] = [];
+		}
+
 		if (card.type === "monthly") {
             monthlyCards.push(card);
         } else {
             if (card.type === "weekly" && selectedMonth < month + 1) {
-                weekNumber = getTotalWeeksInMonth(year, month);
+                weekNumber = lastWeek;
             }
 
             if (!weeklyCards[weekNumber]) {
