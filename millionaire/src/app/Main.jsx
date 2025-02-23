@@ -30,7 +30,7 @@ export default function Main() {
 	const { data: members } = useMainAPI("groupmember/1", (data) => data.groupMembers);
 	const { data: notice } = useMainAPI("group/notice/1", (data) => data.notice);
 	
-	const { weeklyCards, monthlyCards } = calcCards(cards);
+	const { weeklyCards, monthlyCards } = calcCards(cards, selectedMonth);
 	
 	const loadCards = async () => {
 		if (!groupInfo) return;
