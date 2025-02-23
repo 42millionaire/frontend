@@ -1,3 +1,3 @@
-const BASE_URL = `http://localhost:9988/api`;
+const BASE_URL = `https://42millionaire.phan.kr/api`;
 
 export default BASE_URL;
