@@ -12,8 +12,6 @@ import postAPI from "./apis/post.js";
 import getUserInfo from "./hooks/getUserInfo.js";
 
 function App() {
-	const [isAdmin, setIsAdmin] = useState(false);
-
 	const ProtectedRoute = ({ children }) => {
 		const [isAuthenticated, setIsAuthenticated] = useState(false);
 		const navigate = useNavigate();
@@ -76,6 +74,7 @@ function App() {
 	};
 
 	const ProtectedAdminRoute = ({ children }) => {
+		const [isAdmin, setIsAdmin] = useState(false);
 		const navigate = useNavigate();
 
 		const handelAdmin = async () => {
@@ -106,7 +105,7 @@ function App() {
 					element={
 						<ProtectedRoute>
 							<ProtectedGroupRoute>
-								(isAdmin ? <Home /> : <Main />)
+								<Main />
 							</ProtectedGroupRoute>
 						</ProtectedRoute>
 					}
