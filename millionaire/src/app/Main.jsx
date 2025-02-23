@@ -81,7 +81,7 @@ export default function Main() {
 	
 	return (
 		<div className="flex h-screen bg-gray-900 text-white">
-			<div className="flex flex-col w-1/5 p-4 border-r border-gray-700 gap-[2rem]">
+			<div className="flex flex-col w-1/6 p-4 border-r border-gray-700 gap-[2rem]">
 				<MainGroupName groupName={ groupInfo ? groupInfo.groupName : ""} />
 				<MemberList members={members} handleClickMember={handleClickMember} currentUserId={userInfo.id}/>
 				<MainNotice notice={notice} />
@@ -93,19 +93,20 @@ export default function Main() {
 					setSelectedMonth={setSelectedMonth}
 				/>
 			{ loading && ( <Loading></Loading>) }
-			{ !loading && groupInfo && ( <>
-					<div className="mb-8 border-b-1-indigo-200">
+			{ !loading && groupInfo && (
+				<div className="p-5">
+					<div className="mb-8 border-b border-gray-700">
 						<h2 className="text-xl font-bold mb-4">Monthly Goals</h2>
 						{monthlyCards.length ? renderCards(monthlyCards) : <span className="text-base text-gray-500"> 등록된 월 목표가 없습니다.</span>}
 					</div>
 
 					{Object.entries(weeklyCards).map(([week, cards]) => (
-						<div key={week} className="mb-8 border-b-1-indigo-200">
+						<div key={week} className="mb-8 border-b border-gray-700">
 							<h2 className="text-xl font-bold mb-4">{week} Week</h2>
 							{cards.length ? renderCards(cards) : <span className="text-base text-gray-500"> 해당 주에 등록된 목표가가 없습니다.</span>}
 						</div>
 					))}
-				</>
+				</div>
 				)
 			}
 				</div>
