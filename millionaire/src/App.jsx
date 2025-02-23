@@ -12,6 +12,8 @@ import postAPI from "./apis/post.js";
 import getUserInfo from "./hooks/getUserInfo.js";
 
 function App() {
+	const [isAdmin, setIsAdmin] = useState(false);
+
 	const ProtectedRoute = ({ children }) => {
 		const [isAuthenticated, setIsAuthenticated] = useState(false);
 		const navigate = useNavigate();
@@ -74,7 +76,6 @@ function App() {
 	};
 
 	const ProtectedAdminRoute = ({ children }) => {
-		const [isAdmin, setIsAdmin] = useState(false);
 		const navigate = useNavigate();
 
 		const handelAdmin = async () => {
@@ -82,7 +83,7 @@ function App() {
 
 			if (response === 403) {
 				alert("관리자가 아닙니다.");
-				navigate("/", { replace: true });
+				navigate("/main", { replace: true });
 				return ;
 			} 
 
@@ -105,7 +106,7 @@ function App() {
 					element={
 						<ProtectedRoute>
 							<ProtectedGroupRoute>
-								<Home />
+								(isAdmin ? <Home /> : <Main />)
 							</ProtectedGroupRoute>
 						</ProtectedRoute>
 					}
