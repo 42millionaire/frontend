@@ -64,6 +64,15 @@ function App() {
 
 				return ;
 			}
+
+			if (checking === 400) {
+
+				alert("세션 만료되었습니다. 다시 로그인해주세요.");
+				localStorage.clear();
+				navigate("/login", { replace: true });
+
+				return ;
+			}
 		}
 
 		useEffect(() => {
