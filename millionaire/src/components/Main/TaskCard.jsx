@@ -76,7 +76,7 @@ const TaskCard = ({ task, isOtherMember }) => {
 					</div>
 					<div className="relative text-white flex flex-col justify-content-center">
 						<div className="flex-grow content-center justify-content-center overflow-hidden">
-							<h3 className="font-bold text-center text-sm leading-tight overflow-hidden whitespace-nowrap text-ellipsis">
+							<h3 className="font-bold text-center text-base leading-tight overflow-hidden whitespace-nowrap text-ellipsis">
 								{task.content}
 							</h3>
 						</div>

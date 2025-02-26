@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 const AppealModalContent = (id, title) => {
     const [data, setData] = useState([]);
 
+
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -32,7 +33,7 @@ const AppealModalContent = (id, title) => {
                 <div>{data.content}</div>
                 {data.base64_images.map(
 					(item) =>(
-						<image src={item}/>
+						<img src={item}/>
 					),
 				)}
             </div>

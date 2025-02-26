@@ -80,7 +80,7 @@ export default function Main() {
 	);
 	
 	return (
-		<div className="flex h-screen bg-gray-900 text-white">
+		<div className="flex h-screen bg-[#0C0F15] text-[#E2E8F0]">
 			<div className="flex flex-col w-1/6 p-4 border-r border-gray-700 gap-[2rem]">
 				<MainGroupName groupName={ groupInfo ? groupInfo.groupName : ""} />
 				<MemberList members={members} handleClickMember={handleClickMember} currentUserId={userInfo.id}/>

@@ -3,11 +3,32 @@ import { useState } from "react";
 import AuthModal from "../AuthModal";
 import { printDateFormat } from "../../utils/dateUtils";
 import deleteAPI from "../../apis/delete";
+import useMainAPI from "../../hooks/useMain";
+import { getAPI } from "../../apis/get";
 
 export default function TaskModal({ isOpen, onClose, task, isOtherMember }) {
 	const [showAuthModal, setShowAuthModal] = useState(false);
-
+	const [authContent, setAuthContent] = useState("");
+	const [authContentImages, setAuthContentImages] = useState([]);
+	
 	if (!isOpen) return null;
+
+	if (task.status !== "none") {
+		const fetchVerification = async () => {
+			try {
+			  const response = await getAPI(`verification/${task.taskId}`);
+			  
+			  if (response.content)
+				setAuthContent(response.content);
+			  if (response.base64Images)
+				setAuthContentImages(response.base64Images);
+			} catch (error) {
+			  console.error("API 요청 실패:", error);
+			}
+		  };
+		if (authContent === "")
+			fetchVerification();
+	}
 
 	const isDueDateValid = () => {
 		const today = new Date();
@@ -44,11 +65,28 @@ export default function TaskModal({ isOpen, onClose, task, isOtherMember }) {
 		alert(res);
 		window.location.reload();
 	};
+
+	const getStatusColor = (status) => {
+		return status === "accept"
+		? "bg-green-100 text-green-800"
+		: status === "deny"
+			? "bg-red-100 text-red-800"
+			: status === "pend"
+				? "bg-yellow-100 text-yellow-800"
+				: "bg-gray-100 text-gray-800"
+	}
+
+	const getTitleBGColor = (status) => {
+		if (status === "accept") return "bg-green-700";
+		else if (status === "deny") return "bg-[#9A4444]";
+		else if (status === "pend") return "bg-yellow-600";
+		else return "bg-[#486EBA]";
+	}
 	
 	return (
 		<>
 			<div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 ">
-				<div className={"bg-white rounded-lg w-full max-w-md mx-4 relative" + (showAuthModal ? "hidden" : "")}>
+				<div className={"bg-white rounded-lg w-full max-w-2xl mx-4 relative" + (showAuthModal ? "hidden" : "")}>
 					<button
 						onClick={onClose}
 						className="absolute right-4 top-4 p-1 hover:bg-gray-200 rounded-full transition-colors"
@@ -57,7 +95,7 @@ export default function TaskModal({ isOpen, onClose, task, isOtherMember }) {
 					</button>
 
 					<div
-						className={`${task.type === "monthly" ? "bg-[#153E90]" : "bg-[#486EBA]"} p-6 rounded-t-lg`}
+						className={`${getTitleBGColor(task.status)} p-6 rounded-t-lg`}
 					>
 						<div className="text-white">
 							<div className="text-sm font-medium mb-1">
@@ -79,21 +117,22 @@ export default function TaskModal({ isOpen, onClose, task, isOtherMember }) {
 								<div className="mt-1">
 									<span
 										className={`
-                      px-2 py-1 rounded-full text-sm font-medium
-                      ${
-												task.status === "accept"
-													? "bg-green-100 text-green-800"
-													: task.status === "deny"
-														? "bg-red-100 text-red-800"
-														: task.status === "pend"
-															? "bg-yellow-100 text-yellow-800"
-															: "bg-gray-100 text-gray-800"
-											}
-                    `}
+                      	px-2 py-1 rounded-full text-sm font-medium
+                      	${getStatusColor(task.status)}
+                    	`}
 									>
 										{task.status?.toUpperCase() || "PENDING"}
 									</span>
 								</div>
+							</div>
+
+							<div className={`${task.status === 'none'? "hidden":""} flex flex-col overflow-auto text-gray-500 w-64`}>
+								<span>인증</span>
+								<div>내용 : {authContent}</div>
+								{authContentImages.map((img, index) => (
+									<img key={index} src={`data:image/;base64,${img}`} alt="Task Image" className="w-full rounded-lg object-cover" />
+									)
+								)}
 							</div>
 
 							<div>
