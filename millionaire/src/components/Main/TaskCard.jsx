@@ -13,7 +13,7 @@ const TaskCard = ({ task, isOtherMember }) => {
 
 	const getBackgroundColor = () => {
 		if (task.status === "accept") return "bg-green-600/80";
-		else if (task.status === "deny") return "bg-red-600/80";
+		else if (task.status === "deny") return "bg-[#EF5656]/60";
 		else if (task.status === "pend") return "bg-yellow-600/80";
 		else {
 			return task.type === "monthly" ? "bg-[#153E90]/80" : "bg-[#486EBA]/80";
@@ -42,14 +42,20 @@ const TaskCard = ({ task, isOtherMember }) => {
 			<div className="group perspective-1000">
 				<div
 					className={`
-			  p-4 m-2 rounded-lg ${backgroundColor} relative overflow-hidden w-[200px] h-24
+			  p-4 m-2 rounded-lg ${backgroundColor} relative overflow-hidden w-[220px] h-[125px]
 			  transition-transform duration-200 ease-out
 			  group-hover:shadow-xl
 			  hover:scale-105
 			  cursor-pointer
 			  transform-gpu
+			  flex
+			  flex-col
+			  justify-content-start
+			  content-center
+			  shadow-inner
 			`}
 					style={{
+						boxShadow: "inset 0 6px 8px rgba(0, 0, 0, 0.3)", // 추가적인 inset shadow
 						transform:
 							mousePosition.x || mousePosition.y
 								? `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`
@@ -60,20 +66,20 @@ const TaskCard = ({ task, isOtherMember }) => {
 					onClick={() => setIsModalOpen(true)}
 				>
 					<div className="absolute inset-0 group-hover:bg-white/5 transition-colors duration-200" />
-					<div className="absolute inset-0 flex items-center justify-center text-white opacity-10 pointer-events-none">
-						<div className="text-4xl font-bold uppercase whitespace-normal text-center">
+					<div className="absolute inset-0 flex items-center justify-center text-white opacity-20 pointer-events-none">
+						<div className="absolute inset-0 w-full h-full flex items-center justify-center text-6xl font-bold uppercase break-words text-center">
 							{task.type}
 						</div>
 					</div>
-					<div className="relative text-white flex flex-col h-full">
-						<div className="flex-grow overflow-hidden max-h-[60px]">
-							<h3 className="font-bold text-2xl leading-tight">
+					<div className="flex mb-4">
+						<span className="text-right ml-auto font-bold text-sm">{task.dueDate}</span>
+					</div>
+					<div className="relative text-white flex flex-col justify-content-center">
+						<div className="flex-grow content-center justify-content-center overflow-hidden">
+							<h3 className="font-bold text-center text-sm leading-tight overflow-hidden whitespace-nowrap text-ellipsis">
 								{task.content}
 							</h3>
 						</div>
-						<p className="mt-2 text-sm font-light opacity-70">
-							마감: { printDateFormat(task.dueDate, false) }
-						</p>
 					</div>
 				</div>
 			</div>
