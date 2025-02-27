@@ -12,11 +12,11 @@ const GoogleCallback = () => {
 	const handleGoogleLogin = async (code) => {
 		try {
 			const isSuccess = await getAPI("login/oauth2/code/google?", { code });
-
+			console.log(isSuccess);
 			if (!isSuccess) {
 				console.error("Google login failed");
 				navigate("/login");
-			} else if (isSuccess === 500) {
+			} else if (isSuccess === 400) {
 				navigate("/");
 			} else {
 				window.localStorage.setItem("memberId", isSuccess.memberId);
