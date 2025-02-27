@@ -34,8 +34,6 @@ function App() {
 		const handleJoinGroup = async () => {
 			const checking = await getAPI("groupmember/check/1");
 
-			console.log(checking);
-
 			if (checking === true) {
 				setIsJoinGroup(true);
 				return ;
