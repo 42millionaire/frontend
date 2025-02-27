@@ -126,7 +126,7 @@ export default function TaskModal({ isOpen, onClose, task, isOtherMember }) {
 								</div>
 							</div>
 
-							<div className={`${task.status === 'none'? "hidden":""} flex flex-col overflow-auto text-gray-500 w-64`}>
+							<div className={`${task.status === 'none'? "hidden":""} flex flex-col overflow-auto text-gray-500 w-64 max-h-64`}>
 								<span>인증</span>
 								<div>내용 : {authContent}</div>
 								{authContentImages.map((img, index) => (
