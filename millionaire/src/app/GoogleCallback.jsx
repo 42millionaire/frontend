@@ -2,6 +2,7 @@ import { useState, useEffect, Fragment } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { getAPI } from "../apis/get.js";
 import Spinner from "../components/Spinner/Spinner.jsx";
+import getUserInfo from "../hooks/getUserInfo.js";
 
 const GoogleCallback = () => {
 	const navigate = useNavigate();
@@ -11,10 +12,12 @@ const GoogleCallback = () => {
 	const handleGoogleLogin = async (code) => {
 		try {
 			const isSuccess = await getAPI("login/oauth2/code/google?", { code });
-			
+
 			if (!isSuccess) {
 				console.error("Google login failed");
 				navigate("/login");
+			} else if (isSuccess === 500) {
+				navigate("/");
 			} else {
 				window.localStorage.setItem("memberId", isSuccess.memberId);
 				window.localStorage.setItem("memberName", isSuccess.memberName);
