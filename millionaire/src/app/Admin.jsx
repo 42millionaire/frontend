@@ -2,14 +2,15 @@ import { useState } from "react";
 import Authentication from "../components/Authentication";
 import MemberManage from "../components/MemberManage";
 import DashBoard from "../components/DashBoard";
-import MainNotice from "../components/Main/MainNotice";
+// import MainNotice from "../components/Main/MainNotice";
+import Notice from "../components/Notice";
 import Sidebar from "../components/Sidebar";
 
 const PAGES = {
 	AUTH: Authentication,
 	MEMBER: MemberManage,
 	DASH: DashBoard,
-	NOTICE: MainNotice,
+	NOTICE: Notice,
 };
 
 export default function Admin() {
