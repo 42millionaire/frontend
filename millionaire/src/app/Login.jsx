@@ -1,6 +1,12 @@
 import { FcGoogle } from "react-icons/fc";
+import { getAPI } from "../apis/get";
 
 const Login = () => {
+	const handleLogin = async () => {
+		const data = await getAPI("oauth/google");
+		window.location.href = data.url;
+	};
+	
   return (
     <div className="flex items-center justify-center min-h-screen bg-black bg-opacity-80 relative">
       {/* 배경 이미지 */}
@@ -22,7 +28,7 @@ const Login = () => {
         {/* Google 로그인 버튼 */}
         <button
           className="mt-6 flex items-center gap-2 bg-white text-black font-semibold px-6 py-3 rounded-lg shadow hover:bg-gray-200 transition w-full sm:w-auto"
-          onClick={() => alert("Google 로그인 구현 예정")}
+          onClick={handleLogin}
         >
           <FcGoogle size={24} />
           Google 계정으로 로그인
