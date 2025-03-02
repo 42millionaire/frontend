@@ -58,7 +58,7 @@ export default function Main() {
 			selectedYear,
 			selectedMonth,
 		);
-		console.log(member);
+		
 		setUserName(member.name);
 		setUserId(member.memberId);
 		setCards(cardsData);

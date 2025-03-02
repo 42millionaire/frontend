@@ -1,7 +1,7 @@
 import { printDateFormat } from "../utils/dateUtils";
 
 const Li = (props) => {
-    console.log(props.id);
+    
     const {item, openModal, id} = props;
     return (
         <li className="mt-3 flex hover:text-orange-400 text-[17px]">

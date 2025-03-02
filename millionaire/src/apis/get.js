@@ -7,7 +7,6 @@ const getAPI = async (path, queryParams = {}) => {
 			url.searchParams.append(key, queryParams[key]),
 		);
 
-		console.log(document.cookie);
 
 		const response = await fetch(url, {
 			headers: {

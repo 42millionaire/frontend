@@ -19,8 +19,6 @@ const calcCards = (cards, selectedMonth) => {
 	const imminentCards = [];
 	const today = printDateFormat(null, false);
 
-	console.log(today);
-
 	cards.forEach((card) => {
 		const dueDate = new Date(card.dueDate);
 		const year = dueDate.getFullYear();

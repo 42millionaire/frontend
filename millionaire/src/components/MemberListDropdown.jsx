@@ -9,7 +9,7 @@ const MemberListDropdown = ( { members, handleClickMember, currentUserId } ) => 
   const [selectedMember, setSelectedMember] = useState(null);
   const dropdownRef = useRef(null);
 
-  console.log(selectedMember);
+  
 
   useEffect(() => {
     if (members && members.length > 0) {

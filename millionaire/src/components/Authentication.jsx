@@ -47,7 +47,7 @@ const Authentication = () => {
 					tmp.push(pend[i]);
 				setPend(tmp);
 			}
-            console.log(response);
+            
         } catch (error) {
             console.error(error);
         }
@@ -67,7 +67,7 @@ const Authentication = () => {
 					"status" : "deny"
 				}),
             });
-            console.log(response);
+            
 			const tmp = [];
 				for (let i = 0; i < pend.length; i++) {
 					if (pend[i].taskId !== taskId)
@@ -126,7 +126,7 @@ const Authentication = () => {
 					"status" : "accept"
 				}),
             });
-            console.log(response);
+            
 			const tmp = [];
 			for (let i = 0; i < appeal.length; i++) {
 				if (appeal[i].appealId !== appealId)
@@ -152,7 +152,7 @@ const Authentication = () => {
 					"status" : "deny"
 				}),
             });
-            console.log(response);
+            
 			const tmp = [];
 			for (let i = 0; i < appeal.length; i++) {
 				if (appeal[i].appealId !== appealId)
@@ -184,7 +184,7 @@ const Authentication = () => {
 	const fetchPendModal = async (taskId, content, time) =>{
 		try {
 			const data = await getAPI(`verification/${taskId}`);
-			console.log(data);
+			
 			setPendModalContent(
 				<div className="text-black">
 					<h1 className="mb-[10px] text-[20px]">{content}</h1>
@@ -215,7 +215,7 @@ const Authentication = () => {
 		try {
 			const verifcation = await getAPI(`verification/${taskId}`);
 			const task = await getAPI(`task/${taskId}`);
-			console.log(verifcation);
+			
 			setAppealModalContent(
 				<div className="text-black">
 					<h1 className="mb-[10px] text-[20px]">이의제기내용: {content}</h1>

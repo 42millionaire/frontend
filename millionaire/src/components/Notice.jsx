@@ -14,7 +14,7 @@ export default function Notice() {
 	const fetchNotice = async () => {
 		try {
 			const data = await getAPI('group/notice/1');
-			console.log(data);
+			
 			setNoticeContent(data.notice);
 		} catch (error) {
 			console.error(error);
@@ -34,7 +34,7 @@ export default function Notice() {
 					"notice" : noticeContent
 				}),
             });
-            console.log(response);
+            
         } catch (error) {
             console.error(error);
         }

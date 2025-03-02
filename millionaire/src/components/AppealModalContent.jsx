@@ -15,7 +15,7 @@ const AppealModalContent = (id, title) => {
 					method: "GET",
 				});
 				const res = await response.json();
-				console.log(res);
+				
 				setData(res);
 			} catch (error) {
 				console.error(error);

@@ -53,7 +53,7 @@ export default function TaskModal({ isOpen, onClose, task, isOtherMember }) {
 		const requestBody = {
 			taskId
 		}
-		console.log(JSON.stringify(requestBody));
+		
 		const res = await deleteAPI("/task", requestBody);
 
 		if (res === null) {
