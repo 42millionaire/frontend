@@ -36,9 +36,9 @@ const MainNotice = ({notice}) => {
 
       {/* 알림창 */}
       {showNotice && (
-        <div className="absolute right-0 mt-2 w-64 bg-gray-800 text-white text-sm rounded-lg shadow-lg z-10 transition-all duration-300 transform scale-95 opacity-100 animate-fadeIn">
+        <div className="absolute right-0 mt-2 w-64 bg-gray-800 text-white text-xl rounded-lg shadow-lg z-10 transition-all duration-300 transform scale-95 opacity-100 animate-fadeIn">
           <div className="p-3 border-b border-gray-700 font-semibold">알림</div>
-          <p className="p-3 text-gray-300 text-sm font-semibold">{notice}</p>
+          <p className="p-3 text-gray-300 text-base font-semibold">{notice}</p>
         </div>
       )}
     </div>
