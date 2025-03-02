@@ -2,12 +2,9 @@ import { useEffect, useState } from "react";
 import { fetchCards } from "../apis/services/taskService.js";
 import { sortCards, calcCards } from "../utils/calculations/cardUtils.js";
 import MainHeader from "../components/Main/MainHeader.jsx";
-import MainNotice from "../components/Main/MainNotice.jsx";
-import MemberList from "../components/MemberList.jsx";
 import TaskAddButton from "../components/Main/TaskAddButton.jsx";
 import TaskAddModal from "../components/Main/TaskAddModal.jsx";
 import TaskCard from "../components/Main/TaskCard.jsx";
-import MainGroupName from "../components/Main/MainGroupName.jsx";
 
 import useMainAPI from "../hooks/useMain.js";
 import getUserInfo from "../hooks/getUserInfo.js";
@@ -21,7 +18,10 @@ export default function Main() {
 	const [cards, setCards] = useState([]);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isShowOtherMembers, setIsShowOtherMembers] = useState(false);
-	const [userName, setUserName] = useState(userInfo.name);
+	const [taskToggle, setTaskToggle] = useState({
+		monthly: true, // 월 목표 토글 상태
+		weekly: { 1: true, 2: true, 3: true, 4: true} // 주차별 토글 상태 (동적으로 관리)
+	  });
 	const [userId, setUserId] = useState(userInfo.id);
 
 	const { data: groupInfo, loading } = useMainAPI(
@@ -58,12 +58,27 @@ export default function Main() {
 			selectedYear,
 			selectedMonth,
 		);
-		
-		setUserName(member.name);
+	
 		setUserId(member.memberId);
 		setCards(cardsData);
 	};
 
+	const handleTaskToggle = (section) => {
+		setTaskToggle((prev) => ({
+		  ...prev,
+		  [section]: !prev[section]
+		}));
+	  };
+	  
+	const handleWeekToggle = (week) => {
+		setTaskToggle((prev) => ({
+			...prev,
+			weekly: {
+			...prev.weekly,
+			[week]: !prev.weekly[week] // 해당 주차만 토글
+			}
+		}));
+	};
 
 	useEffect(() => {
 		loadCards();
@@ -113,14 +128,24 @@ export default function Main() {
 					}
 
 					<div className="mb-8 border-b border-gray-700">
-						<h2 className="text-xl font-bold mb-4">Monthly Goals</h2>
-						{monthlyCards.length ? renderCards(monthlyCards) : <span className="text-base text-gray-500"> 등록된 월 목표가 없습니다.</span>}
+						<h2 className="text-xl font-bold mb-4" onClick={() => handleTaskToggle("monthly")}>
+							Monthly Goals
+							<span className="text-sm"> {taskToggle.monthly ? "▼" : "▶"}</span>
+						</h2>
+						{taskToggle.monthly ? 
+							monthlyCards.length ? renderCards(monthlyCards) : <span className="text-base text-gray-500"> 등록된 월 목표가 없습니다.</span>
+								: ""}
 					</div>
 
 					{Object.entries(weeklyCards).map(([week, cards]) => (
 						<div key={week} className="mb-8 border-b border-gray-700">
-							<h2 className="text-xl font-bold mb-4">{week} Week</h2>
-							{cards.length ? renderCards(cards) : <span className="text-base text-gray-500"> 해당 주에 등록된 목표가 없습니다.</span>}
+							<h2 className="text-xl font-bold mb-4" onClick={() => handleWeekToggle(week)}>
+								{week} Week
+								<span className="text-sm"> {taskToggle.weekly[week] ? "▼" : "▶"}</span>
+							</h2>
+							{taskToggle.weekly[week] ? 
+								cards.length ? renderCards(cards) : <span className="text-base text-gray-500"> 해당 주에 등록된 목표가 없습니다.</span>
+									: ""}
 						</div>
 					))}
 				</div>
