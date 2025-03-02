@@ -29,6 +29,7 @@ export default function Main() {
 	);
 	const { data: members } = useMainAPI("groupmember/1", (data) => data.groupMembers);
 	const { data: notice } = useMainAPI("group/notice/1", (data) => data.notice);
+	const { data: isAdmin } = useMainAPI("admin?groupId=1", (data) => data.isAdmin);
 	
 	const { weeklyCards, monthlyCards } = calcCards(cards, selectedMonth);
 	
@@ -86,11 +87,12 @@ export default function Main() {
 				<MemberList members={members} handleClickMember={handleClickMember} currentUserId={userInfo.id}/>
 				<MainNotice notice={notice} />
 			</div>
-			<div className="w-3/4 p-4 overflow-auto">
+			<div className="w-5/6 p-4 overflow-auto">
 				<MainHeader
 					memberName={userName}
 					selectedMonth={selectedMonth}
 					setSelectedMonth={setSelectedMonth}
+					isAdmin={isAdmin}
 				/>
 			{ loading && ( <Loading></Loading>) }
 			{ !loading && groupInfo && (
