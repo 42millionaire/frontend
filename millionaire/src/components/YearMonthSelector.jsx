@@ -54,7 +54,7 @@ const YearMonthSelector = ({ selectedMonth, setSelectedMonth, selectedYear, setS
         </div>
         
         {/* Month Selector */}
-        <div className="relative text-sm sm:text-2xl">
+        <div className="relative">
           <button
             onClick={() => setShowMonthDropdown(!showMonthDropdown)}
             className="inline-flex items-center gap-x-1 text-sm sm:text-2xl border-b border-gray-600 pb-1 hover:opacity-80"
