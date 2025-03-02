@@ -17,6 +17,7 @@ export default function Main() {
 	const userInfo = getUserInfo();// useMainAPI("", (data) => data.user);
 
 	const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
+	const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 	const [cards, setCards] = useState([]);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isShowOtherMembers, setIsShowOtherMembers] = useState(false);
@@ -39,26 +40,27 @@ export default function Main() {
 		const cardsData = await fetchCards(
 			groupInfo.groupId,
 			userId,
-			new Date().getFullYear(),
+			selectedYear,
 			selectedMonth,
 		);
 		setCards(cardsData);
 	};
 
-	const handleClickMember = async (memberId, memberName) => {
-		if (memberId !== parseInt(userInfo.id))
+	const handleClickMember = async (member) => {
+		if (member.memberId !== parseInt(userInfo.id))
 			setIsShowOtherMembers(true);
 		else
 			setIsShowOtherMembers(false);
 
 		const cardsData = await fetchCards(
 			groupInfo.groupId,
-			memberId,
-			new Date().getFullYear(),
+			member.memberId,
+			selectedYear,
 			selectedMonth,
 		);
-		setUserName(memberName);
-		setUserId(memberId);
+		console.log(member);
+		setUserName(member.name);
+		setUserId(member.memberId);
 		setCards(cardsData);
 	};
 
@@ -82,16 +84,22 @@ export default function Main() {
 	
 	return (
 		<div className="flex h-screen bg-[#0C0F15] text-[#E2E8F0]">
-			<div className="flex flex-col w-1/6 p-4 border-r border-gray-700 gap-[2rem]">
+			{/* <div className="flex flex-col w-1/6 p-4 border-r border-gray-700 gap-[2rem]">
 				<MainGroupName groupName={ groupInfo ? groupInfo.groupName : ""} />
 				<MemberList members={members} handleClickMember={handleClickMember} currentUserId={userInfo.id}/>
 				<MainNotice notice={notice} />
-			</div>
-			<div className="w-5/6 p-4 overflow-auto">
+			</div> */}
+			<div className="w-[100%] p-4 overflow-auto">
 				<MainHeader
-					memberName={userName}
+					groupInfo={groupInfo}
+					notice={notice}
 					selectedMonth={selectedMonth}
 					setSelectedMonth={setSelectedMonth}
+					selectedYear={selectedYear}
+					setSelectedYear={setSelectedYear}
+					members={members}
+					handleClickMember={handleClickMember}
+					currentUserId={userInfo.id}
 					isAdmin={isAdmin}
 				/>
 			{ loading && ( <Loading></Loading>) }
