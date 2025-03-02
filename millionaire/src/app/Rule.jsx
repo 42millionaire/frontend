@@ -19,7 +19,7 @@ const Rule = () => {
         <li>- 아플 땐 <strong className="text-blue-400">해당 날짜 보이게 인증</strong></li>
         <li>- 여행은 <strong className="text-blue-400">3일 전에 통보 후, 얼굴 보이게 셀카 인증</strong></li>
         <li>- 검사는 <strong className="text-blue-400">조부모님까지 인정</strong></li>
-        <li>- 일일 목표 완료 시 <strong className="text-blue-400">카톡 방에 인증하기</strong></li>
+        <li>- 일일 목표 완료 시 <strong className="text-blue-400">웹 사이트 인증 방식 이용하기</strong></li>
         <li>- 목표 설정한 프로젝트 하다가 예상치 못한 에러로 열심히 했는데 목표 완료 못한 경우,<br/>
             <strong className="text-blue-400">개발일지로 인증 가능합니다 (아래 템플릿 참조 꼭 양식 안지켜도 되지만 자세하게 부탁드립니다.)</strong>
         </li>
