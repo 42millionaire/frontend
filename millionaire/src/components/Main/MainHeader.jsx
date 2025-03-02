@@ -1,6 +1,7 @@
 import Month from "../Month";
 import logOut from "../../../assets/img/logOut.png";
 import { RiAdminLine } from "react-icons/ri";
+import { SiGoogledocs } from "react-icons/si";
 import YearMonthSelector from "../YearMonthSelector";
 import MemberListDropdown from "../MemberListDropdown";
 import MainGroupName from "./MainGroupName";
@@ -52,6 +53,9 @@ export default function MainHeader({
 						) : ""
 					}
 					<MainNotice notice={notice} className="mr-5 hover:opacity-80" />
+					<a href="/rule" className="ml-auto mr-5 hover:opacity-80">
+						<SiGoogledocs className="w-5 h-5 sm:w-8 sm:h-8" />
+					</a>
 					<a href="/login" onClick={() => handleLogout()} className="ml-auto mr-5 hover:opacity-80">
 						<img src={logOut} alt="logout" className="w-5 h-5 sm:w-8 sm:h-8" />
 					</a>

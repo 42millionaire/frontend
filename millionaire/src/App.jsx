@@ -10,6 +10,7 @@ import WaitinRoom from "./app/WaitingRoom.jsx";
 import { getAPI } from "./apis/get.js";
 import postAPI from "./apis/post.js";
 import getUserInfo from "./hooks/getUserInfo.js";
+import Rule from "./app/Rule.jsx";
 
 function App() {
 	const ProtectedRoute = ({ children }) => {
@@ -118,6 +119,7 @@ function App() {
 					}
 					/>
 				<Route path="/login" element={<Login />} />
+				<Route path="/rule" element={<Rule />} />
 				<Route path="/auth/google/callback" element={<GoogleCallback />} />
 				<Route
 					path="/main"
