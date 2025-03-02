@@ -28,7 +28,7 @@ export default function MainHeader({
 		<header className="flex flex-col w-[100%]">
 			<MainGroupName groupName={groupInfo?.groupName}/>
 			<div className="flex items-center justify-between">
-				<div className="flex items-center justify-center">
+				<div className="flex items-center justify-center sm:space-x-4">
 					<YearMonthSelector
 						selectedMonth={selectedMonth}
 						setSelectedMonth={setSelectedMonth}
@@ -47,13 +47,13 @@ export default function MainHeader({
 						isAdmin === true ? 
 						(
 							<a href="/admin" className="ml-auto mr-5 hover:opacity-80">
-								<RiAdminLine className="w-8 h-8" />
+								<RiAdminLine className="w-5 h-5 sm:w-8 sm:h-8" />
 							</a>
 						) : ""
 					}
-					<MainNotice notice={notice} className="w-8 h-8 mr-5 hover:opacity-80" />
+					<MainNotice notice={notice} className="mr-5 hover:opacity-80" />
 					<a href="/login" onClick={() => handleLogout()} className="ml-auto mr-5 hover:opacity-80">
-						<img src={logOut} alt="logout" className="w-8 h-8" />
+						<img src={logOut} alt="logout" className="w-5 h-5 sm:w-8 sm:h-8" />
 					</a>
 				</div>
 			</div>

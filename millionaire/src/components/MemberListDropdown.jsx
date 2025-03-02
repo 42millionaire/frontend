@@ -39,9 +39,11 @@ const MemberListDropdown = ( { members, handleClickMember, currentUserId } ) => 
         onClick={() => setShowDropdown(!showDropdown)}
         // onMouseEnter={() => setShowDropdown(true)}
         // onMouseLeave={() => setShowDropdown(false)}
-        className="text-2xl font-bold hover:text-gray-400 text-[#FEFEFE]"
+        className="inline-flex items-center gap-x-1 text-sm sm:text-2xl border-b border-gray-600 pb-1 hover:opacity-80"
       >
-        <span className="border-b border-white">{selectedMember?.name}</span>의 목표 <span className="text-base">▼</span>
+        <span className="font-bold">{selectedMember?.name}</span>
+        <span className="text-xs hidden sm:inline sm:text-xl">의 목표</span>
+        <span className="text-xs sm:text-xl">▼</span>
       </button>
       {showDropdown && (
         <div className="absolute top-12 mt-2 w-48 bg-gray-800 shadow-lg rounded z-10 transition-all duration-300 transform scale-95 opacity-100 animate-fadeIn">

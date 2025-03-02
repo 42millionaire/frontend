@@ -25,13 +25,13 @@ const MainNotice = ({notice}) => {
   }, []);
 
   return (
-    <div className="relative w-8 h-8w-8 h-8 mr-5" ref={noticeRef}>
+    <div className="relative mr-5" ref={noticeRef}>
       {/* 🔔 버튼 */}
       <button
         onClick={() => setShowNotice(!showNotice)}
         className="rounded-full hover:bg-gray-700 transition"
       >
-        <Bell size={32} className="text-gray-300" />
+        <Bell className="w-5 h-5 sm:w-8 sm:h-8 text-gray-300" />
       </button>
 
       {/* 알림창 */}

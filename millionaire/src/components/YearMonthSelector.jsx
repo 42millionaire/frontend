@@ -24,12 +24,16 @@ const YearMonthSelector = ({ selectedMonth, setSelectedMonth, selectedYear, setS
     <div ref={dropdownRef} className="flex items-center justify-center p-4 text-white">
       <div className="relative flex items-center space-x-2 text-lg">
         {/* Year Selector */}
-        <div className="relative text-2xl">
+        <div className="relative">
           <button
             onClick={() => setShowYearDropdown(!showYearDropdown)}
-            className="px-2 py-1 rounded hover:bg-gray-700 text-[#FEFEFE]"
+            className="inline-flex items-center gap-x-1 text-sm sm:text-2xl border-b border-gray-600 pb-1 hover:opacity-80"
           >
-            <span className="border-b border-white font-bold ">{selectedYear}</span>년 <span className="text-base">▼</span>
+            <span className="font-bold">{selectedYear}</span>
+            <span className="text-xs sm:text-sm">년</span>
+            <button className="text-xs sm:text-sm">
+            ▼
+            </button>
           </button>
           {showYearDropdown && (
             <div className="absolute left-0 mt-1 w-24 bg-gray-800 shadow-lg rounded z-10 transition-all duration-300 transform scale-95 opacity-100 animate-fadeIn">
@@ -50,12 +54,16 @@ const YearMonthSelector = ({ selectedMonth, setSelectedMonth, selectedYear, setS
         </div>
         
         {/* Month Selector */}
-        <div className="relative text-2xl">
+        <div className="relative text-sm sm:text-2xl">
           <button
             onClick={() => setShowMonthDropdown(!showMonthDropdown)}
-            className="px-2 py-1 rounded hover:bg-gray-700 text-[#FEFEFE]"
+            className="inline-flex items-center gap-x-1 text-sm sm:text-2xl border-b border-gray-600 pb-1 hover:opacity-80"
           >
-            <span className="border-b border-white font-bold">{selectedMonth < 10 ? `0${selectedMonth}` : selectedMonth}</span>월 <span className="text-base">▼</span>
+            <span className="font-bold">{selectedMonth < 10 ? `0${selectedMonth}` : selectedMonth}</span>
+            <span className="text-xs sm:text-sm">월</span>
+            <button className="text-xs sm:text-sm">
+            ▼
+            </button>
           </button>
           {showMonthDropdown && (
             <div className="absolute left-0 mt-1 w-20 bg-gray-800 shadow-lg rounded z-10 transition-all duration-300 transform scale-95 opacity-100 animate-fadeIn">
