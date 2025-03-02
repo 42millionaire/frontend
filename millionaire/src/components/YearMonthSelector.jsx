@@ -31,9 +31,9 @@ const YearMonthSelector = ({ selectedMonth, setSelectedMonth, selectedYear, setS
           >
             <span className="font-bold">{selectedYear}</span>
             <span className="text-xs sm:text-sm">년</span>
-            <button className="text-xs sm:text-sm">
+            <span className="text-xs sm:text-sm">
             ▼
-            </button>
+            </span>
           </button>
           {showYearDropdown && (
             <div className="absolute left-0 mt-1 w-24 bg-gray-800 shadow-lg rounded z-10 transition-all duration-300 transform scale-95 opacity-100 animate-fadeIn">
@@ -61,9 +61,9 @@ const YearMonthSelector = ({ selectedMonth, setSelectedMonth, selectedYear, setS
           >
             <span className="font-bold">{selectedMonth < 10 ? `0${selectedMonth}` : selectedMonth}</span>
             <span className="text-xs sm:text-sm">월</span>
-            <button className="text-xs sm:text-sm">
+            <span className="text-xs sm:text-sm">
             ▼
-            </button>
+            </span>
           </button>
           {showMonthDropdown && (
             <div className="absolute left-0 mt-1 w-20 bg-gray-800 shadow-lg rounded z-10 transition-all duration-300 transform scale-95 opacity-100 animate-fadeIn">
