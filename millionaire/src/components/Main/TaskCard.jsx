@@ -33,6 +33,21 @@ const TaskCard = ({ task, isOtherMember }) => {
 		setMousePosition({ x: 0, y: 0 });
 	};
 
+	const cardDueDateFormat = (type, dueDate) => {
+		const month = new Date(dueDate).getMonth() + 1;
+		const weekNum = calcWeek(new Date(dueDate));
+		const day = new Date(dueDate).getDate();
+
+		if (type === "daily")
+			return `${month}월 ${day}일 목표`
+		
+		if (type === "weekly")
+			return `${month}월 ${weekNum}주차 목표`;
+
+		if (type === "monthly")
+			return `${month}월 목표`;
+	}
+
 	const backgroundColor = getBackgroundColor();
 	const rotateX = mousePosition.y / 8;
 	const rotateY = -mousePosition.x / 8;
@@ -73,8 +88,8 @@ const TaskCard = ({ task, isOtherMember }) => {
 					</div>
 					<div className="flex mb-4">
 						<span className="text-right ml-auto font-bold text-sm">
-							{ task.type === "weekly" ? 
-								`${new Date(task.dueDate).getMonth() + 1}월 ${calcWeek(new Date(task.dueDate))}주차` : task.dueDate
+							{
+								cardDueDateFormat(task.type, task.dueDate)
 							}
 						</span>
 					</div>
