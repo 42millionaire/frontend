@@ -1,9 +1,8 @@
 import { X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AuthModal from "../AuthModal";
 import { printDateFormat } from "../../utils/dateUtils";
 import deleteAPI from "../../apis/delete";
-import useMainAPI from "../../hooks/useMain";
 import { getAPI } from "../../apis/get";
 
 export default function TaskModal({ isOpen, onClose, task, isOtherMember }) {
@@ -82,10 +81,19 @@ export default function TaskModal({ isOpen, onClose, task, isOtherMember }) {
 		else if (status === "pend") return "bg-yellow-600";
 		else return "bg-[#486EBA]";
 	}
-	
+
+	const handleModalOutsideClick = (e) => {
+        // 모달 배경을 클릭한 경우에만 onClose 실행
+        if (e.target === e.currentTarget) {
+            onClose();
+        }
+    };
+
 	return (
 		<>
-			<div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 ">
+			<div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 "
+				onClick={handleModalOutsideClick}
+			>
 				<div className={"bg-white rounded-lg w-full max-w-2xl mx-4 relative" + (showAuthModal ? "hidden" : "")}>
 					<button
 						onClick={onClose}
