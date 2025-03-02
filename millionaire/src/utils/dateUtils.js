@@ -17,4 +17,17 @@ const printDateFormat = (date = null, isHourPrint = true) => {
         });
 }
 
-export {printDateFormat};
+const calcWeek = (dueDate) => {
+    const dayOfMonth = dueDate.getDate();
+    const year = dueDate.getFullYear();
+	const month = dueDate.getMonth(); // 0-based index
+
+    const firstDayOfMonth = new Date(year, month, 1);
+    const firstMonday = new Date(firstDayOfMonth);
+    firstMonday.setDate(1 + ((8 - firstDayOfMonth.getDay()) % 7)); // 첫 월요일 찾기
+
+    const weekNumber = Math.ceil((dayOfMonth - firstMonday.getDate() + 1) / 7);
+    return weekNumber < 1 ? 0 : weekNumber; // 최소 주차는 0부터 시작
+}
+
+export {printDateFormat, calcWeek};

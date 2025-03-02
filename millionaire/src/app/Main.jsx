@@ -32,7 +32,7 @@ export default function Main() {
 	const { data: notice } = useMainAPI("group/notice/1", (data) => data.notice);
 	const { data: isAdmin } = useMainAPI("admin?groupId=1", (data) => data.isAdmin);
 	
-	const { weeklyCards, monthlyCards } = calcCards(cards, selectedMonth);
+	const { weeklyCards, monthlyCards, imminentCards } = calcCards(cards, selectedMonth);
 	
 	const loadCards = async () => {
 		if (!groupInfo) return;
@@ -105,6 +105,13 @@ export default function Main() {
 			{ loading && ( <Loading></Loading>) }
 			{ !loading && groupInfo && (
 				<div className="p-5">
+					{imminentCards.length ?
+						<div className="mb-8 border-b border-gray-700">
+							<h2 className="text-xl font-bold mb-4 text-red-400">마감임박!</h2>
+							{ renderCards(imminentCards) }
+						</div> : ""
+					}
+
 					<div className="mb-8 border-b border-gray-700">
 						<h2 className="text-xl font-bold mb-4">Monthly Goals</h2>
 						{monthlyCards.length ? renderCards(monthlyCards) : <span className="text-base text-gray-500"> 등록된 월 목표가 없습니다.</span>}
@@ -113,7 +120,7 @@ export default function Main() {
 					{Object.entries(weeklyCards).map(([week, cards]) => (
 						<div key={week} className="mb-8 border-b border-gray-700">
 							<h2 className="text-xl font-bold mb-4">{week} Week</h2>
-							{cards.length ? renderCards(cards) : <span className="text-base text-gray-500"> 해당 주에 등록된 목표가가 없습니다.</span>}
+							{cards.length ? renderCards(cards) : <span className="text-base text-gray-500"> 해당 주에 등록된 목표가 없습니다.</span>}
 						</div>
 					))}
 				</div>

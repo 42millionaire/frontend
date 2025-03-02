@@ -1,7 +1,7 @@
 import { useState } from "react";
 import useMainAPI from "../../hooks/useMain";
 import TaskModal from "./TaskModal";
-import { printDateFormat } from "../../utils/dateUtils";
+import { calcWeek, printDateFormat } from "../../utils/dateUtils";
 
 const TaskCard = ({ task, isOtherMember }) => {
 	const { data: taskDetails } = useMainAPI(
@@ -72,7 +72,11 @@ const TaskCard = ({ task, isOtherMember }) => {
 						</div>
 					</div>
 					<div className="flex mb-4">
-						<span className="text-right ml-auto font-bold text-sm">{task.dueDate}</span>
+						<span className="text-right ml-auto font-bold text-sm">
+							{ task.type === "weekly" ? 
+								`${new Date(task.dueDate).getMonth() + 1}월 ${calcWeek(new Date(task.dueDate))}주차` : task.dueDate
+							}
+						</span>
 					</div>
 					<div className="relative text-white flex flex-col justify-content-center">
 						<div className="flex-grow content-center justify-content-center overflow-hidden">

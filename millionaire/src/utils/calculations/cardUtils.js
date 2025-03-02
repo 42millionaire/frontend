@@ -1,3 +1,5 @@
+import { calcWeek, printDateFormat } from "../dateUtils";
+
 function getTotalWeeksInMonth(year, month) {
     const firstDayOfMonth = new Date(year, month - 1, 1);
     const lastDayOfMonth = new Date(year, month, 0); // 해당 월의 마지막 날짜
@@ -14,24 +16,27 @@ function getTotalWeeksInMonth(year, month) {
 const calcCards = (cards, selectedMonth) => {
 	const weeklyCards = { 1: [], 2: [], 3: [], 4: [] };
 	const monthlyCards = [];
+	const imminentCards = [];
+	const today = printDateFormat(null, false);
+
+	console.log(today);
 
 	cards.forEach((card) => {
 		const dueDate = new Date(card.dueDate);
 		const year = dueDate.getFullYear();
 		const month = dueDate.getMonth(); // 0-based index
-		const dayOfMonth = dueDate.getDate();
-
-		const firstDayOfMonth = new Date(year, month, 1);
-		const firstMonday = new Date(firstDayOfMonth);
-		firstMonday.setDate(1 + ((8 - firstDayOfMonth.getDay()) % 7)); // 첫 월요일 찾기
-
-		let weekNumber = Math.ceil((dayOfMonth - firstMonday.getDate() + 1) / 7);
-		weekNumber = weekNumber < 1 ? 1 : weekNumber; // 최소 주차는 1부터 시작
+		
+		let weekNumber = calcWeek(dueDate);
+		weekNumber = weekNumber === 0 ? 1 : weekNumber;
 
 		const lastWeek = getTotalWeeksInMonth(year, month);
 		
 		if (!weeklyCards[lastWeek]) {
 			weeklyCards[lastWeek] = [];
+		}
+
+		if (today === printDateFormat(dueDate, false) && card.status === "none") {
+			imminentCards.push(card);
 		}
 
 		if (card.type === "monthly") {
@@ -49,7 +54,7 @@ const calcCards = (cards, selectedMonth) => {
         }
 	});
 
-	return { weeklyCards, monthlyCards };
+	return { weeklyCards, monthlyCards, imminentCards };
 
 };
 
