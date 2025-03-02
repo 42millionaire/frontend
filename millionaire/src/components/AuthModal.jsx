@@ -9,6 +9,7 @@ export default function AuthModal({ task, onClose }) {
   const [previews, setPreviews] = useState([]);
   const [showLargePreview, setShowLargePreview] = useState(null);
   const fileInputRef = useRef(null);
+  const MAX_TOTAL_SIZE = 20 * 1024 * 1024; // 20MB
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,9 +35,19 @@ export default function AuthModal({ task, onClose }) {
     }
   };
 
+  const calculateTotalSize = (files) => {
+    return files.reduce((total, file) => total + file.size, 0);
+  };
+
   const handleFiles = (files) => {
     const fileArray = Array.from(files).filter((file) => file.type.startsWith("image"));
     if (fileArray.length === 0) return;
+    
+    const newSize = calculateTotalSize([...images, ...fileArray]);
+    if (newSize > MAX_TOTAL_SIZE) {
+      alert("총 파일 크기는 20MB를 초과할 수 없습니다.");
+      return;
+    }
 
     setImages((prev) => [...prev, ...fileArray]);
     const newPreviews = fileArray.map((file) => URL.createObjectURL(file));
@@ -109,7 +120,7 @@ export default function AuthModal({ task, onClose }) {
               className="hidden"
             />
             <FaPlus className="text-gray-400 w-6 h-6" />
-            <span className="text-gray-500 text-sm">파일을 드래그하거나 클릭하여 업로드</span>
+            <span className="text-gray-500 text-sm">파일을 드래그하거나 클릭하여 업로드 (최대 20M)</span>
           </div>
           {previews.length > 0 && (
             <div className="grid grid-cols-3 gap-2">
@@ -137,23 +148,6 @@ export default function AuthModal({ task, onClose }) {
           </button>
         </form>
       </div>
-
-      {showLargePreview && (
-        <div
-          className="fixed inset-0 z-100 flex justify-center items-center bg-black bg-opacity-75"
-          onClick={() => setShowLargePreview(null)}
-        >
-          <div className="relative max-w-[90%] max-h-[90%]" onClick={(e) => e.stopPropagation()}>
-            <img src={showLargePreview} alt="Large Preview" className="max-w-full max-h-full object-contain" />
-            <button
-              onClick={() => setShowLargePreview(null)}
-              className="absolute top-2 right-2 p-2 rounded-full bg-black bg-opacity-50 text-white hover:bg-opacity-75 transition-colors"
-            >
-              <FaTimes className="w-6 h-6" />
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
