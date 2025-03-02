@@ -2,6 +2,12 @@ import Month from "../Month";
 import logOut from "../../../assets/img/logOut.png";
 import { RiAdminLine } from "react-icons/ri";
 
+const handleLogout = () => {
+	alert("로그아웃 합니다.");
+	// server에 쿠키 삭제 요청보내기
+	localStorage.clear();
+}
+
 export default function MainHeader({
 	memberName,
 	selectedMonth,
@@ -24,7 +30,7 @@ export default function MainHeader({
 						</a>
 					) : ""
 				}
-				<a href="/" className="ml-auto mr-5 hover:opacity-80">
+				<a href="/login" onClick={() => handleLogout()} className="ml-auto mr-5 hover:opacity-80">
 					<img src={logOut} alt="logout" className="w-8 h-8" />
 				</a>
 			</div>
