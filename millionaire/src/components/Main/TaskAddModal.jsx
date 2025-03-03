@@ -50,7 +50,11 @@ export default function TaskAddModal({ groupInfo, userInfo, onClose, onCreateTas
 	};
 
 	const checkDateNull = (date) => {
-		const now = new Date();
+		const curr = new Date();
+		const utc = curr.getTime() + (curr.getTimezoneOffset() * 60 * 1000);
+
+		const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
+		const now = new Date(utc + (KR_TIME_DIFF));
 
 		if (date.length)
 			return date;
@@ -81,7 +85,6 @@ export default function TaskAddModal({ groupInfo, userInfo, onClose, onCreateTas
 			
 			if (now > today3AM)
 				now.setDate(now.getDate() + 1);
-
 			return now.toISOString().split('T')[0];
 		}
 	}
