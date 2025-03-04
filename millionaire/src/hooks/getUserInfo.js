@@ -1,7 +1,8 @@
+import secureLocalStorage  from 'react-secure-storage';
 
 export default function getUserInfo() {
-    const id = window.localStorage.getItem('memberId');
-    const name = window.localStorage.getItem('memberName');
+    const id = secureLocalStorage.getItem('memberId');
+    const name = secureLocalStorage.getItem('memberName');
 
     return {id, name};
 }

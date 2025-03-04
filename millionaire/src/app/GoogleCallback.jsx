@@ -2,7 +2,7 @@ import { useState, useEffect, Fragment } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { getAPI } from "../apis/get.js";
 import Spinner from "../components/Spinner/Spinner.jsx";
-import getUserInfo from "../hooks/getUserInfo.js";
+import secureLocalStorage  from 'react-secure-storage';
 
 const GoogleCallback = () => {
 	const navigate = useNavigate();
@@ -19,8 +19,8 @@ const GoogleCallback = () => {
 			} else if (isSuccess === 400) {
 				navigate("/");
 			} else {
-				window.localStorage.setItem("memberId", isSuccess.memberId);
-				window.localStorage.setItem("memberName", isSuccess.memberName);
+				secureLocalStorage.setItem("memberId", isSuccess.memberId);
+				secureLocalStorage.setItem("memberName", isSuccess.memberName);
 				navigate("/");
 			}
 		} catch (error) {

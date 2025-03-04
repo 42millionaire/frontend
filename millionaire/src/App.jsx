@@ -11,6 +11,7 @@ import { getAPI } from "./apis/get.js";
 import postAPI from "./apis/post.js";
 import getUserInfo from "./hooks/getUserInfo.js";
 import Rule from "./app/Rule.jsx";
+import secureLocalStorage  from 'react-secure-storage';
 
 function App() {
 	const ProtectedRoute = ({ children }) => {
@@ -18,7 +19,7 @@ function App() {
 		const navigate = useNavigate();
 
 		useEffect(() => {
-			const token = localStorage.getItem("memberId");
+			const token = secureLocalStorage.getItem("memberId");
 			setIsAuthenticated(!!token);
 			if (!token) {
 				navigate("/login", { replace: true });
