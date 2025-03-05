@@ -26,6 +26,7 @@ export default function TaskAddModal({ groupInfo, userInfo, onClose, onCreateTas
 		}
 
 		const formattedDate = formatDateForSubmit(dueDate);
+		console.log(formattedDate);
 		const requestBody = {
 			groupId: groupInfo.groupId,
 			memberId: userInfo.id,
@@ -53,7 +54,7 @@ export default function TaskAddModal({ groupInfo, userInfo, onClose, onCreateTas
 		const curr = new Date();
 		const utc = curr.getTime() + (curr.getTimezoneOffset() * 60 * 1000);
 
-		const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
+		const KR_TIME_DIFF = 16 * 60 * 60 * 1000;
 		const now = new Date(utc + (KR_TIME_DIFF));
 
 		if (date.length)
@@ -70,7 +71,7 @@ export default function TaskAddModal({ groupInfo, userInfo, onClose, onCreateTas
 				now.setDate(now.getDate() + (14 - now.getDay()));
 			else
 				now.setDate(now.getDate() + 7);
-			return now.toISOString().split('T')[0];
+			return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
 		} 
 		
 		if (selectedGoal == "daily") {
@@ -85,7 +86,9 @@ export default function TaskAddModal({ groupInfo, userInfo, onClose, onCreateTas
 			
 			if (now > today3AM)
 				now.setDate(now.getDate() + 1);
-			return now.toISOString().split('T')[0];
+
+			console.log(now.toISOString());
+			return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
 		}
 	}
 
@@ -95,7 +98,7 @@ export default function TaskAddModal({ groupInfo, userInfo, onClose, onCreateTas
 			const lastDay = getLastDayOfMonth(date);
 			return `${date}-${String(lastDay).padStart(2, "0")}`;
 		}
-
+		
 		return date;
 	};
 
