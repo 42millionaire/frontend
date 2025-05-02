@@ -3,7 +3,7 @@ import { IoPerson } from "react-icons/io5";
 
 const MemberListDropdown = ( { members, handleClickMember, currentUserId } ) => {
   const me = members?.find((member) => member.memberId === parseInt(currentUserId));
-	const friends = members?.filter((member) => member.memberId !== parseInt(currentUserId));
+	const friends = members?.filter((member) => member.memberId !== parseInt(currentUserId) && member.memberId !== 4 && member.memberId !== 8);
 
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedMember, setSelectedMember] = useState(null);
