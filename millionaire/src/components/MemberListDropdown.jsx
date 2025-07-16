@@ -1,9 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import { IoPerson } from "react-icons/io5";
 
+const sleepMember = [2, 3, 4, 5, 6, 8]
+
 const MemberListDropdown = ( { members, handleClickMember, currentUserId } ) => {
   const me = members?.find((member) => member.memberId === parseInt(currentUserId));
-	const friends = members?.filter((member) => member.memberId !== parseInt(currentUserId) && member.memberId !== 4 && member.memberId !== 8 && member.memberId !== 2);
+	const friends = members?.filter((member) => member.memberId !== parseInt(currentUserId) && !sleepMember.includes(member.memberId));
   
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedMember, setSelectedMember] = useState(null);
